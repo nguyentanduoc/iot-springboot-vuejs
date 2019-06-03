@@ -9,7 +9,9 @@
   },
   "dependencies": {
     "core-js": "^2.6.5",
+    "mapbox-gl": "^1.0.0",
     "vue": "^2.6.10",
+    "vue-mapbox": "^0.4.1",
     "vue-mqtt": "^2.0.3",
     "vue-router": "^3.0.3",
     "vuejs-logger": "^1.5.3",
