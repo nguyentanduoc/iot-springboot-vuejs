@@ -1,0 +1,26 @@
+plugins {
+	id 'org.springframework.boot' version '2.1.5.RELEASE'
+	id 'java'
+}
+
+apply plugin: 'io.spring.dependency-management'
+
+group = 'com.vn.ntd'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-amqp'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	compile group: 'org.springframework.amqp', name: 'spring-rabbit', version: '2.1.6.RELEASE'
+	compileOnly('org.projectlombok:lombok')
+	compile('com.fasterxml.jackson.core:jackson-databind')
+	compile group: 'org.springframework.integration', name: 'spring-integration-mqtt', version: '5.1.5.RELEASE'
+	compile("org.springframework.boot:spring-boot-starter-data-jpa")
+	implementation('org.postgresql:postgresql')
+}
