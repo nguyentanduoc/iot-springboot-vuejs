@@ -13,15 +13,6 @@
     name: 'home',
     components: {
       HelloWorld
-    },
-    mqtt: {
-      'test': function (val) {
-        const string = new TextDecoder("utf-8").decode(val);
-        this.$log.debug('test', string)
-      }
-    },
-    beforeCreate() {
-      this.$mqtt.subscribe('test')
     }
   }
 </script>

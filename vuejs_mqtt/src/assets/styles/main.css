@@ -1,12 +1,25 @@
-body, html {
+body, html, #app {
     margin: 0;
     padding: 0;
     height: 100%;
+    width: 100%
 }
+
 #app {
     height: 100%;
 }
+
 #map {
     width: 100%;
     height: calc(100% - 78px);
+}
+
+#vue-layers-ntd {
+    width: 100% !important;;
+    height: calc(100% - 78px) !important;;
+    position: relative !important;
+}
+.map {
+    height: 100% !important;
+    width: 100% !important;;
 }

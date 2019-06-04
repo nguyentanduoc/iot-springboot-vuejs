@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
 
-Vue.use(Router)
+Vue.use(Router);
 
 export default new Router({
   mode: 'history',
@@ -22,6 +22,26 @@ export default new Router({
       path: '/map',
       name: 'map',
       component: () => import('./views/Map.vue')
+    },
+    {
+      path: '/map-leaflet',
+      name: 'leaflet',
+      component: () => import('./views/MapLeafLet.vue')
+    },
+    {
+      path: '/basic',
+      name: 'basic',
+      component: () => import('./views/Basic.vue')
+    },
+    {
+      path: '/implement-map',
+      name: 'implementMap',
+      component: () => import('./views/ImplementMap.vue')
+    },
+    {
+      path: '/vuelayers',
+      name: 'vuelayers',
+      component: () => import('./views/VueLayers.vue')
     }
   ]
 })
