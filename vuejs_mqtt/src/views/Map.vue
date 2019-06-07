@@ -1,7 +1,7 @@
 <template>
 	<div id="map">
-		<button @click="rotateMap">rotateMap</button>
-		<img id="arrowCar" src="../assets/img/location-arrow-flat.png" alt="arrowCar">
+		<!--<button @click="rotateMap">rotateMap</button>-->
+		<!--<img id="arrowCar" src="../assets/img/location-arrow-flat.png" alt="arrowCar">-->
 		<MglMap
 				:accessToken="accessToken"
 				:mapStyle="style"

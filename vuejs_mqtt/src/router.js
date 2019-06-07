@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from './views/Home.vue'
 
 Vue.use(Router);
 
@@ -10,38 +9,44 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'home',
-      component: Home
+      redirect: '/home',
+      name: 'DefaultLayout',
+      component: () => import('./containers/DefaultLayout'),
+      children: [
+        {
+          path: 'home',
+          name: 'home',
+          component: () => import('./views/Home'),
+        },
+        {
+          path: 'map',
+          name: 'map',
+          component: () => import('./views/Map'),
+        },
+      ]
     },
     {
-      path: '/about',
-      name: 'about',
-      component: () => import('./views/About.vue')
+      path: '/pages',
+      redirect: '/pages/404',
+      name: 'Pages',
+      component: {
+        render(c) {
+          return c('router-view')
+        }
+      },
+      children: [
+        {
+          path: 'login',
+          name: 'Login',
+          component: () => import('./views/Login'),
+        },
+        {
+          path: 'register',
+          name: 'Register',
+          component: () => import('./views/Login'),
+        }
+      ]
     },
-    {
-      path: '/map',
-      name: 'map',
-      component: () => import('./views/Map.vue')
-    },
-    {
-      path: '/map-leaflet',
-      name: 'leaflet',
-      component: () => import('./views/MapLeafLet.vue')
-    },
-    {
-      path: '/basic',
-      name: 'basic',
-      component: () => import('./views/Basic.vue')
-    },
-    {
-      path: '/implement-map',
-      name: 'implementMap',
-      component: () => import('./views/ImplementMap.vue')
-    },
-    {
-      path: '/vuelayers',
-      name: 'vuelayers',
-      component: () => import('./views/VueLayers.vue')
-    }
+    {path: "*", component: () => import('./views/404')}
   ]
 })
