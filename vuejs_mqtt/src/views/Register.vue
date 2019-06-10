@@ -1,5 +1,5 @@
 <template>
-	<v-app id="login" class="primary">
+	<v-app id="register" class="primary">
 		<v-content>
 			<v-container fluid fill-height>
 				<v-layout align-center justify-center>
@@ -8,19 +8,21 @@
 							<v-card-text>
 								<div class="layout column align-center">
 									<img src="/static/m.png" alt="Vue Material Admin" width="120" height="120">
-									<h1 class="flex my-4 primary--text">Material Admin Template</h1>
+									<h1 class="flex my-4 primary--text">IoT Register</h1>
 								</div>
+								<v-alert
+										:value="getIsErrored"
+										color="error">
+									{{getMessageError}}
+								</v-alert>
 								<v-form>
 									<v-text-field
-											append-icon="person" name="login" label="Login" type="text"
+											append-icon="person" name="login" label="Username" type="text"
 											v-model="model.username"></v-text-field>
 									<v-text-field
 											append-icon="lock" name="password" label="Password" id="password" type="password"
 											v-model="model.password"></v-text-field>
 								</v-form>
-								<router-link to="/pages/register">
-									<a>Register</a>
-								</router-link>
 							</v-card-text>
 							<v-card-actions>
 								<v-btn icon>
@@ -33,7 +35,7 @@
 									<v-icon color="light-blue">fa fa-twitter fa-lg</v-icon>
 								</v-btn>
 								<v-spacer></v-spacer>
-								<v-btn block color="primary" @click="login" :loading="loading">Login</v-btn>
+								<v-btn block color="primary" @click="onRegister" :loading="getIsLogin">Login</v-btn>
 							</v-card-actions>
 						</v-card>
 					</v-flex>
@@ -44,7 +46,10 @@
 </template>
 
 <script>
+  import {mapActions, mapGetters} from 'vuex'
+
   export default {
+    name: "Register",
     data: () => ({
       loading: false,
       model: {
@@ -52,26 +57,29 @@
         password: ''
       }
     }),
+    computed: {
+      ...mapGetters([
+        'getIsLogin',
+        'getCreateSuccess',
+        'getMessageError',
+        'getIsErrored'
+      ])
+    },
+    mounted() {
 
+    },
     methods: {
-      login() {
-        this.loading = true;
-        setTimeout(() => {
-          this.$router.push('/dashboard');
-        }, 1000);
+      ...mapActions(['register']),
+      async onRegister() {
+        await this.register(this.model);
+        if (this.getCreateSuccess) {
+          this.$router.push('/pages/login');
+        }
       }
     }
-
-  };
+  }
 </script>
-<style scoped lang="css">
-	#login {
-		height: 50%;
-		width: 100%;
-		position: absolute;
-		top: 0;
-		left: 0;
-		content: "";
-		z-index: 0;
-	}
+
+<style scoped>
+
 </style>

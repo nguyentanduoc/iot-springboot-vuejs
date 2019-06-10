@@ -1,7 +1,17 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import store from './store'
 
 Vue.use(Router);
+
+const requireAuth = (to, from, next) => {
+  if (to.matched.some(record => record.meta.requiresAuth) && !store.state.isLogin) {
+    next('/pages/login');
+  } else {
+    next();
+  }
+};
+
 
 export default new Router({
   mode: 'history',
@@ -12,6 +22,8 @@ export default new Router({
       redirect: '/home',
       name: 'DefaultLayout',
       component: () => import('./containers/DefaultLayout'),
+      meta: {requiresAuth: true},
+      beforeEnter: requireAuth,
       children: [
         {
           path: 'home',
@@ -43,10 +55,28 @@ export default new Router({
         {
           path: 'register',
           name: 'Register',
-          component: () => import('./views/Login'),
+          component: () => import('./views/Register'),
         }
       ]
     },
-    {path: "*", component: () => import('./views/404')}
+    {
+      name: 'NotFound',
+      path: '/404',
+      component: () => import('./views/404'),
+    },
+    {
+      name: 'AccessDenied',
+      path: '/404',
+      component: () => import('./views/404'),
+    },
+    {
+      name: 'ServerError',
+      path: '/404',
+      component: () => import('./views/404'),
+    },
+    {
+      path: "*",
+      redirect: '404'
+    },
   ]
-})
+});

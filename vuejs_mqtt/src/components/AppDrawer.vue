@@ -5,7 +5,7 @@
 			fixed
 			:dark="$vuetify.dark"
 			app
-			v-model="drawerComponent"
+			:value="drawerState"
 			width="260"
 	>
 		<v-toolbar color="primary darken-1" dark>
@@ -18,8 +18,9 @@
 			<v-list dense expand>
 				<template v-for="(item, i) in menus">
 					<!--group with subitems-->
-					<v-list-group v-if="item.items" :key="item.name" :group="item.group" :prepend-icon="item.icon"
-					              no-action="no-action">
+					<v-list-group
+							v-if="item.items" :key="item.name" :group="item.group" :prepend-icon="item.icon"
+							no-action="no-action">
 						<v-list-tile slot="activator" ripple="ripple">
 							<v-list-tile-content>
 								<v-list-tile-title>{{ item.title }}</v-list-tile-title>
@@ -33,16 +34,18 @@
 										<v-list-tile-title>{{ subItem.title }}</v-list-tile-title>
 									</v-list-tile-content>
 								</v-list-tile>
-								<v-list-tile v-for="(grand, i) in subItem.children" :key="i" :to="genChildTarget(item, grand)"
-								             :href="grand.href" ripple="ripple">
+								<v-list-tile
+										v-for="(grand, i) in subItem.children" :key="i" :to="genChildTarget(item, grand)"
+										:href="grand.href" ripple="ripple">
 									<v-list-tile-content>
 										<v-list-tile-title>{{ grand.title }}</v-list-tile-title>
 									</v-list-tile-content>
 								</v-list-tile>
 							</v-list-group>
 							<!--child item-->
-							<v-list-tile v-else :key="i" :to="genChildTarget(item, subItem)" :href="subItem.href"
-							             :disabled="subItem.disabled" :target="subItem.target" ripple="ripple">
+							<v-list-tile
+									v-else :key="i" :to="genChildTarget(item, subItem)" :href="subItem.href"
+									:disabled="subItem.disabled" :target="subItem.target" ripple="ripple">
 								<v-list-tile-content>
 									<v-list-tile-title><span>{{ subItem.title }}</span></v-list-tile-title>
 								</v-list-tile-content>
@@ -55,8 +58,9 @@
 					<v-subheader v-else-if="item.header" :key="i">{{ item.header }}</v-subheader>
 					<v-divider v-else-if="item.divider" :key="i"></v-divider>
 					<!--top-level link-->
-					<v-list-tile v-else :to="item.href" ripple="ripple"
-					             :disabled="item.disabled" rel="noopener" :key="item.name">
+					<v-list-tile
+							v-else :to="item.href" ripple="ripple"
+							:disabled="item.disabled" rel="noopener" :key="item.name">
 						<v-list-tile-action v-if="item.icon">
 							<v-icon>{{ item.icon }}</v-icon>
 						</v-list-tile-action>
@@ -106,7 +110,9 @@
       computeLogo() {
         return '/static/m.png';
       },
-
+      drawerState() {
+        return this.drawer;
+      },
       sideToolbarColor() {
         return this.$vuetify.options.extra.sideNav;
       }

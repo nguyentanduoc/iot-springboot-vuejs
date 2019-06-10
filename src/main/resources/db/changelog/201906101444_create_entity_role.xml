@@ -1,0 +1,30 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+    <changeSet id="add_sequence" author="ntduoc">
+        <createSequence sequenceName="seq_role" cycle="false" minValue="1" maxValue="9223372036854775807"
+                        startValue="100" incrementBy="1"/>
+    </changeSet>
+    <changeSet id="01" author="ntduoc">
+        <createTable tableName="role_entity">
+            <column name="id" type="bigint" defaultValueComputed="nextval('seq_role')">
+                <constraints nullable="false" unique="true" primaryKey="true"/>
+            </column>
+            <column name="name" type="varchar(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="ntduoc" id="02">
+        <loadData catalogName="cat"
+                  encoding="UTF-8"
+                  file="db/changelog/csv/20190610_create_entity_role.csv"
+                  tableName="role_entity">
+            <column name="id" type="numeric"/>
+            <column name="name" type="string"/>
+        </loadData>
+    </changeSet>
+
+</databaseChangeLog>
