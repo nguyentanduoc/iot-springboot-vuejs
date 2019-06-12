@@ -5,7 +5,7 @@ plugins {
 
 apply plugin: 'io.spring.dependency-management'
 
-group = 'com.vn.ntd'
+group = 'com.vn.tma.ntd'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '1.8'
 
@@ -14,13 +14,18 @@ repositories {
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-amqp'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	compile("org.springframework.boot:spring-boot-starter-security")
 	compile group: 'org.springframework.amqp', name: 'spring-rabbit', version: '2.1.6.RELEASE'
 	compileOnly('org.projectlombok:lombok')
 	compile('com.fasterxml.jackson.core:jackson-databind')
 	compile group: 'org.springframework.integration', name: 'spring-integration-mqtt', version: '5.1.5.RELEASE'
-	compile("org.springframework.boot:spring-boot-starter-data-jpa")
+	compile group: 'io.jsonwebtoken', name: 'jjwt-api', version: '0.10.2'
+	runtime group: 'io.jsonwebtoken', name: 'jjwt-impl', version: '0.10.2'
+	runtime group: 'io.jsonwebtoken', name: 'jjwt-jackson', version: '0.10.2'
+	compile group: 'org.modelmapper', name: 'modelmapper', version: '2.3.4'
+	compile group: 'org.liquibase', name: 'liquibase-core', version: '3.6.3'
 	implementation('org.postgresql:postgresql')
+	compile("org.springframework.boot:spring-boot-starter-data-jpa")
 }

@@ -1,8 +1,18 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from './views/Home.vue'
+import store from './store'
 
-Vue.use(Router)
+Vue.use(Router);
+
+const requireAuth = (to, from, next) => {
+  const {isLogin, jwt} = store.state.loginModule;
+  if (to.matched.some(record => record.meta.requiresAuth) && (!isLogin || jwt === '')) {
+    next('/pages/login');
+  } else {
+    next();
+  }
+};
+
 
 export default new Router({
   mode: 'history',
@@ -10,16 +20,64 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'home',
-      component: Home
+      redirect: '/home',
+      name: 'DefaultLayout',
+      component: () => import('./containers/DefaultLayout'),
+      meta: {requiresAuth: true},
+      beforeEnter: requireAuth,
+      children: [
+        {
+          path: 'home',
+          name: 'home',
+          component: () => import('./views/Home'),
+        },
+        {
+          path: 'map',
+          name: 'map',
+          component: () => import('./views/Map'),
+        },
+      ]
     },
     {
-      path: '/about',
-      name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "about" */ './views/About.vue')
-    }
+      path: '/pages',
+      redirect: '/pages/404',
+      name: 'Pages',
+      component: {
+        render(c) {
+          return c('router-view')
+        }
+      },
+      children: [
+        {
+          path: 'login',
+          name: 'Login',
+          component: () => import('./views/Login'),
+        },
+        {
+          path: 'register',
+          name: 'Register',
+          component: () => import('./views/Register'),
+        }
+      ]
+    },
+    {
+      name: 'NotFound',
+      path: '/404',
+      component: () => import('./views/404'),
+    },
+    {
+      name: 'AccessDenied',
+      path: '/404',
+      component: () => import('./views/404'),
+    },
+    {
+      name: 'ServerError',
+      path: '/404',
+      component: () => import('./views/404'),
+    },
+    {
+      path: "*",
+      redirect: '404'
+    },
   ]
-})
+});

@@ -1,0 +1,99 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+    <changeSet id="add_sequence" author="ntduoc">
+        <createSequence
+                sequenceName="seq_user" cycle="false" minValue="1" maxValue="9223372036854775807"
+                startValue="100" incrementBy="1"/>
+    </changeSet>
+    <changeSet id="01" author="ntduoc">
+        <createTable tableName="user_entity">
+            <column name="id" type="bigint" defaultValueComputed="nextval('seq_user')">
+                <constraints nullable="false" unique="true" primaryKey="true"/>
+            </column>
+            <column name="name" type="varchar(255)">
+                <constraints nullable="true" unique="false"/>
+            </column>
+            <column name="email" type="varchar(255)">
+                <constraints nullable="true" unique="false"/>
+            </column>
+            <column name="username" type="varchar(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="password" type="varchar(255)">
+                <constraints nullable="false" unique="false"/>
+            </column>
+                <column name="created_at" type="datetime">
+                <constraints nullable="false" unique="false"/>
+            </column>
+            <column name="updated_at" type="datetime">
+                <constraints nullable="false" unique="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="ntduoc" id="create_hyper_user">
+        <sql dbms="postgreSQL"
+             endDelimiter="\nGO"
+             splitStatements="true"
+             stripComments="true">SELECT create_hypertable('user_entity', 'id')
+        </sql>
+    </changeSet>
+    <changeSet id="create_table_users_role" author="ntduoc">
+        <createTable tableName="users_roles">
+            <column name="user_id" type="bigint">
+                <constraints nullable="false" unique="false"/>
+            </column>
+            <column name="role_id" type="bigint">
+                <constraints nullable="false" unique="false"/>
+            </column>
+        </createTable>
+        <addUniqueConstraint
+                catalogName="cat" columnNames="user_id, role_id"
+                constraintName="const_user_id_role_id"
+                deferrable="true" disabled="true"
+                initiallyDeferred="true"
+                schemaName="public" tableName="users_roles"/>
+        <addForeignKeyConstraint
+                baseColumnNames="user_id" baseTableName="users_roles"
+                constraintName="fk_user_id_users_role" deferrable="true"
+                initiallyDeferred="true"
+                onDelete="CASCADE" onUpdate="RESTRICT"
+                referencedColumnNames="id" referencedTableName="user_entity"/>
+        <addForeignKeyConstraint
+                baseColumnNames="role_id" baseTableName="users_roles"
+                constraintName="fk_role_id_users_role" deferrable="true"
+                initiallyDeferred="true" onDelete="CASCADE" onUpdate="RESTRICT"
+                referencedColumnNames="id" referencedTableName="role_entity"/>
+    </changeSet>
+    <changeSet author="ntduoc" id="create_hyper_create_table_users_role">
+        <sql dbms="postgreSQL"
+             endDelimiter="\nGO"
+             splitStatements="true"
+             stripComments="true">SELECT create_hypertable('users_roles', 'user_id', 'role_id')
+        </sql>
+    </changeSet>
+    <changeSet author="ntduoc" id="02">
+        <loadData catalogName="cat"
+                  file="db/changelog/csv/201906101445_create_entity_user.csv"
+                  tableName="user_entity">
+            <column name="id" type="numeric"/>
+            <column name="name" type="string"/>
+            <column name="email" type="string"/>
+            <column name="username" type="string"/>
+            <column name="password" type="string"/>
+            <column name="created_at" type="datetime"/>
+            <column name="updated_at" type="datetime"/>
+        </loadData>
+    </changeSet>
+    <changeSet author="ntduoc" id="03">
+        <loadData catalogName="cat"
+                  file="db/changelog/csv/201906101445_01_create_entity_user.csv"
+                  tableName="users_roles">
+            <column name="user_id" type="numeric"/>
+            <column name="role_id" type="numeric"/>
+        </loadData>
+    </changeSet>
+
+</databaseChangeLog>
