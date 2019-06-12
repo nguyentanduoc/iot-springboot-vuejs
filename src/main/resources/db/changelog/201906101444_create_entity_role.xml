@@ -3,6 +3,13 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
          http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+    <changeSet author="ntduoc" id="add_timescale_db">
+        <sql dbms="postgreSQL"
+             endDelimiter="\nGO"
+             splitStatements="true"
+             stripComments="true">CREATE EXTENSION IF NOT EXISTS timescaledb CASCADE
+        </sql>
+    </changeSet>
     <changeSet id="add_sequence" author="ntduoc">
         <createSequence sequenceName="seq_role" cycle="false" minValue="1" maxValue="9223372036854775807"
                         startValue="100" incrementBy="1"/>
@@ -17,9 +24,15 @@
             </column>
         </createTable>
     </changeSet>
+    <changeSet author="ntduoc" id="create_hyper_role">
+        <sql dbms="postgreSQL"
+             endDelimiter="\nGO"
+             splitStatements="true"
+             stripComments="true">SELECT create_hypertable('role_entity', 'id')
+        </sql>
+    </changeSet>
     <changeSet author="ntduoc" id="02">
         <loadData catalogName="cat"
-                  encoding="UTF-8"
                   file="db/changelog/csv/20190610_create_entity_role.csv"
                   tableName="role_entity">
             <column name="id" type="numeric"/>

@@ -7,7 +7,7 @@
 	>
 		<v-toolbar-title class="ml-0 pl-3">
 		</v-toolbar-title>
-		<v-toolbar-side-icon @click.stop="handleDrawerToggle"></v-toolbar-side-icon>
+		<v-toolbar-side-icon @click.stop="toggleDrawer"></v-toolbar-side-icon>
 		<v-text-field
 				flat
 				solo-inverted
@@ -38,7 +38,8 @@
 			<v-list class="pa-0">
 				<v-list-tile
 						v-for="(item,index) in items" :to="!item.href ? { name: item.name } : null" :href="item.href"
-						@click="item.click" ripple="ripple" :disabled="item.disabled" :target="item.target" rel="noopener"
+						@click="itemClick(item.title)" ripple="ripple" :disabled="item.disabled" :target="item.target"
+						rel="noopener"
 						:key="index">
 					<v-list-tile-action v-if="item.icon">
 						<v-icon>{{ item.icon }}</v-icon>
@@ -67,25 +68,16 @@
           icon: 'account_circle',
           href: '#',
           title: 'Profile',
-          click: (e) => {
-            console.log(e);
-          }
         },
         {
           icon: 'settings',
           href: '#',
           title: 'Settings',
-          click: (e) => {
-            console.log(e);
-          }
         },
         {
           icon: 'fullscreen_exit',
           href: '#',
           title: 'Logout',
-          click: (e) => {
-            window.getApp.$emit('APP_LOGOUT');
-          }
         }
       ],
     }),
@@ -95,11 +87,15 @@
       }
     },
     methods: {
-      ...mapActions({
-        handleDrawerToggle: 'toggleDrawer'
-      }),
+      ...mapActions(['logout', 'toggleDrawer']),
       handleFullScreen() {
         Util.toggleFullScreen();
+      },
+      itemClick(itemName) {
+        if (itemName === 'Logout') {
+          this.logout();
+          this.$router.push('/pages/login');
+        }
       }
     }
   };

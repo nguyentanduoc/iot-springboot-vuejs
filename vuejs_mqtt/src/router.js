@@ -5,7 +5,8 @@ import store from './store'
 Vue.use(Router);
 
 const requireAuth = (to, from, next) => {
-  if (to.matched.some(record => record.meta.requiresAuth) && !store.state.isLogin) {
+  const {isLogin, jwt} = store.state.loginModule;
+  if (to.matched.some(record => record.meta.requiresAuth) && (!isLogin || jwt === '')) {
     next('/pages/login');
   } else {
     next();

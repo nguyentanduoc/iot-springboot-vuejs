@@ -1,6 +1,6 @@
 export default {
   state: {
-    drawer: false
+    drawer: true
   },
   mutations: {
     toggleDrawer(state) {

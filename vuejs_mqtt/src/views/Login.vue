@@ -11,6 +11,9 @@
 									<h1 class="flex my-4 primary--text">Material Admin Template</h1>
 								</div>
 								<v-form>
+									<v-alert :value="getErrored.isErrored" color="error">
+										{{getErrored.errorMessage}}
+									</v-alert>
 									<v-text-field
 											append-icon="person" name="login" label="Login" type="text"
 											v-model="model.username"></v-text-field>
@@ -33,7 +36,7 @@
 									<v-icon color="light-blue">fa fa-twitter fa-lg</v-icon>
 								</v-btn>
 								<v-spacer></v-spacer>
-								<v-btn block color="primary" @click="login" :loading="loading">Login</v-btn>
+								<v-btn block color="primary" @click="login(model)" :loading="getLoading">Login</v-btn>
 							</v-card-actions>
 						</v-card>
 					</v-flex>
@@ -44,24 +47,33 @@
 </template>
 
 <script>
+  import {mapActions, mapGetters} from 'vuex'
+
   export default {
     data: () => ({
-      loading: false,
       model: {
         username: '',
         password: ''
       }
     }),
-
+    computed: {
+      ...mapGetters([
+        'getLoading',
+        'getErrored',
+        'getIsLogin',
+      ])
+    },
     methods: {
-      login() {
-        this.loading = true;
-        setTimeout(() => {
-          this.$router.push('/dashboard');
-        }, 1000);
+      ...mapActions(['login', 'resetErrored']),
+    },
+    updated() {
+      if (this.getIsLogin.isLogin && this.getIsLogin.isLogin.jwt !== '') {
+        this.$router.push('/home');
       }
+    },
+    beforeDestroy() {
+      this.resetErrored();
     }
-
   };
 </script>
 <style scoped lang="css">

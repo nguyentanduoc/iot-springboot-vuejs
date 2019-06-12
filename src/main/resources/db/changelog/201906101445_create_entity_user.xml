@@ -33,6 +33,13 @@
             </column>
         </createTable>
     </changeSet>
+    <changeSet author="ntduoc" id="create_hyper_user">
+        <sql dbms="postgreSQL"
+             endDelimiter="\nGO"
+             splitStatements="true"
+             stripComments="true">SELECT create_hypertable('user_entity', 'id')
+        </sql>
+    </changeSet>
     <changeSet id="create_table_users_role" author="ntduoc">
         <createTable tableName="users_roles">
             <column name="user_id" type="bigint">
@@ -60,9 +67,15 @@
                 initiallyDeferred="true" onDelete="CASCADE" onUpdate="RESTRICT"
                 referencedColumnNames="id" referencedTableName="role_entity"/>
     </changeSet>
+    <changeSet author="ntduoc" id="create_hyper_create_table_users_role">
+        <sql dbms="postgreSQL"
+             endDelimiter="\nGO"
+             splitStatements="true"
+             stripComments="true">SELECT create_hypertable('users_roles', 'user_id', 'role_id')
+        </sql>
+    </changeSet>
     <changeSet author="ntduoc" id="02">
         <loadData catalogName="cat"
-                  encoding="UTF-8"
                   file="db/changelog/csv/201906101445_create_entity_user.csv"
                   tableName="user_entity">
             <column name="id" type="numeric"/>
@@ -76,7 +89,6 @@
     </changeSet>
     <changeSet author="ntduoc" id="03">
         <loadData catalogName="cat"
-                  encoding="UTF-8"
                   file="db/changelog/csv/201906101445_01_create_entity_user.csv"
                   tableName="users_roles">
             <column name="user_id" type="numeric"/>

@@ -3,4 +3,4 @@ pluginManagement {
 		gradlePluginPortal()
 	}
 }
-rootProject.name = 'RabbitmqSimple'
+rootProject.name = 'VM'
