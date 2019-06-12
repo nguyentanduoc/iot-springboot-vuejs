@@ -11,8 +11,8 @@
 									<h1 class="flex my-4 primary--text">Material Admin Template</h1>
 								</div>
 								<v-form>
-									<v-alert :value="getErrored.isErrored" color="error">
-										{{getErrored.errorMessage}}
+									<v-alert :value="getAlert.isShow" :color="getAlert.color">
+										{{getAlert.message}}
 									</v-alert>
 									<v-text-field
 											append-icon="person" name="login" label="Login" type="text"
@@ -61,6 +61,7 @@
         'getLoading',
         'getErrored',
         'getIsLogin',
+        'getAlert'
       ])
     },
     methods: {

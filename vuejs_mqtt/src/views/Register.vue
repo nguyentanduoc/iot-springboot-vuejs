@@ -10,8 +10,8 @@
 									<img src="/static/m.png" alt="Vue Material Admin" width="120" height="120">
 									<h1 class="flex my-4 primary--text">IoT Register</h1>
 								</div>
-								<v-alert :value="getErrored.isErrored" color="error">
-									{{getErrored.errorMessage}}
+								<v-alert :value="getAlert.isShow" :color="getAlert.color">
+									{{getAlert.message}}
 								</v-alert>
 								<v-form>
 									<v-text-field
@@ -67,7 +67,7 @@
       ...mapGetters([
         'getLoading',
         'getRegisterCreateSuccess',
-        'getErrored',
+        'getAlert',
       ])
     },
     methods: {

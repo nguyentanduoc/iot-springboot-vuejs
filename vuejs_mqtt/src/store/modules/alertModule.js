@@ -6,11 +6,12 @@ const {ERROR_HAS_ERROR, ERROR_RESET} = ERROR_MUTATION_TYPE;
 export default {
   state: {
     isErrored: false,
-    errorMessage: ''
+    message: '',
+    color: '',
+    isShow: false
   },
   actions: {
     resetErrored({commit}) {
-      console.log('dadad');
       commit(ERROR_RESET);
     }
   },
@@ -27,18 +28,22 @@ export default {
         }
       }
       state.isErrored = true;
-      state.errorMessage = message;
+      state.color = 'error';
+      state.message = message;
+      state.isShow = true;
     },
     [ERROR_RESET](state) {
       state.isErrored = false;
-      state.errorMessage = '';
+      state.message = '';
+      state.isShow = false;
     }
   },
   getters: {
-    getErrored(state) {
+    getAlert(state) {
       return {
-        isErrored: state.isErrored,
-        errorMessage: state.errorMessage
+        color: state.color,
+        isShow: state.isShow,
+        message: state.message
       }
     }
   }
