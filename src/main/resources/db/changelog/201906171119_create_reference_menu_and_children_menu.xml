@@ -1,0 +1,31 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+    <changeSet id="01" author="ntduoc">
+        <createTable tableName="fk_children_menu">
+            <column name="parent_id" type="bigint">
+                <constraints nullable="false" unique="false"/>
+            </column>
+            <column name="children_id" type="bigint">
+                <constraints nullable="false" unique="false"/>
+            </column>
+        </createTable>
+        <addUniqueConstraint
+                tableName="fk_children_menu"
+                columnNames="parent_id,children_id"/>
+        <addForeignKeyConstraint
+                baseTableName="fk_children_menu"
+                baseColumnNames="parent_id"
+                constraintName="fk_children_menu_id_parent"
+                referencedTableName="menu_entity"
+                referencedColumnNames="id"/>
+        <addForeignKeyConstraint
+                baseTableName="fk_children_menu"
+                baseColumnNames="children_id"
+                constraintName="fk_children_menu_id_children"
+                referencedTableName="menu_entity"
+                referencedColumnNames="id"/>
+    </changeSet>
+</databaseChangeLog>

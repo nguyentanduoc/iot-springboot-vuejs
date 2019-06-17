@@ -16,7 +16,7 @@
 		</v-toolbar>
 		<vue-perfect-scrollbar class="drawer-menu--scroll" :settings="scrollSettings">
 			<v-list dense expand>
-				<template v-for="(item, i) in menus">
+				<template v-for="(item, i) in getMenu">
 					<!--group with subitems-->
 					<v-list-group
 							v-if="item.items" :key="item.name" :group="item.group" :prepend-icon="item.icon"
@@ -37,6 +37,7 @@
 								<v-list-tile
 										v-for="(grand, i) in subItem.children" :key="i" :to="genChildTarget(item, grand)"
 										:href="grand.href" ripple="ripple">
+									{{genChildTarget(item, grand)}}
 									<v-list-tile-content>
 										<v-list-tile-title>{{ grand.title }}</v-list-tile-title>
 									</v-list-tile-content>
@@ -103,6 +104,7 @@
     computed: {
       ...mapGetters([
         'drawer',
+        'getMenu'
       ]),
       computeGroupActive() {
         return true;

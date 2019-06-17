@@ -1,5 +1,5 @@
-const Menu =  [
-  { header: 'Apps' },
+const Menu = [
+  {header: 'Apps'},
   {
     title: 'Dashboard',
     group: 'apps',
@@ -14,17 +14,17 @@ const Menu =  [
     name: 'Map',
     href: '/map'
   },
-  { divider: true },
-  { header: 'Extras' },
+  {divider: true},
+  {header: 'Extras'},
   {
     title: 'Pages',
     group: 'extra',
     icon: 'list',
     items: [
-      { name: 'Login', title: 'Login', component: 'Login' },
-      { name: '404', title: '404', component: 'NotFound' },
-      { name: '403', title: '403', component: 'AccessDenied' },
-      { name: '500', title: '500', component: 'ServerError' },
+      {name: 'Login', title: 'Login', href: '/pages/login'},
+      {name: '404', title: 'Not Found', href: '/pages/404'},
+      {name: '403', title: 'Access Denied', href: '/pages/403'},
+      {name: '500', title: 'Server Internal Error', href: '/pages/500'},
     ]
   },
 ];

@@ -1,10 +1,10 @@
 package com.vn.tma.ntd.VM.dto.response;
 
-import com.vn.tma.ntd.VM.dto.UserDto;
+import com.vn.tma.ntd.VM.dto.UserDTO;
+import com.vn.tma.ntd.VM.model.UserPrincipal;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.security.core.Authentication;
 
 /**
  * The Class AuthResponse
@@ -17,5 +17,5 @@ import org.springframework.security.core.Authentication;
 @NoArgsConstructor
 public class AuthResponse {
     private String jwt;
-    private Authentication authentication;
+    private UserDTO userDTO;
 }

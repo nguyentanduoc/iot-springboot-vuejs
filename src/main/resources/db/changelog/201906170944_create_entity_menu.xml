@@ -1,0 +1,64 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+    <changeSet id="add_sequence" author="ntduoc">
+        <createSequence
+                sequenceName="seq_menu" cycle="false" minValue="1" maxValue="9223372036854775807"
+                startValue="100" incrementBy="1"/>
+    </changeSet>
+    <changeSet id="create_entity" author="ntduoc">
+        <createTable tableName="menu_entity">
+            <column name="id" type="bigint" defaultValueComputed="nextval('seq_menu')">
+                <constraints nullable="false" unique="true" primaryKey="true"/>
+            </column>
+            <column name="group_id" type="bigint">
+                <constraints nullable="false" unique="false"/>
+            </column>
+            <column name="name" type="varchar(255)">
+                <constraints nullable="false" unique="false"/>
+            </column>
+            <column name="title" type="varchar(255)">
+                <constraints nullable="true" unique="false"/>
+            </column>
+            <column name="icon" type="varchar(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="href" type="varchar(255)">
+                <constraints nullable="false" unique="false"/>
+            </column>
+            <column name="header" type="varchar(255)">
+                <constraints nullable="false" unique="false"/>
+            </column>
+            <column name="is_divider" type="bool">
+                <constraints nullable="false" unique="false"/>
+            </column>
+            <column name="sort_num" type="bigint">
+                <constraints nullable="false" unique="false"/>
+            </column>
+        </createTable>
+        <addForeignKeyConstraint
+                baseColumnNames="group_id" baseTableName="menu_entity"
+                constraintName="fk_group_id" deferrable="true"
+                initiallyDeferred="true"
+                onDelete="CASCADE" onUpdate="RESTRICT"
+                referencedColumnNames="id" referencedTableName="group_menu_entity"/>
+    </changeSet>
+    <changeSet id="load_data_menu" author="ntduoc">
+        <loadData
+                catalogName="cat"
+                file="db/changelog/csv/201906170944_create_entity_menu.csv"
+                tableName="menu_entity">
+            <column name="id" type="numeric"/>
+            <column name="group_id" type="numeric"/>
+            <column name="name" type="string"/>
+            <column name="title" type="string"/>
+            <column name="icon" type="string"/>
+            <column name="href" type="string"/>
+            <column name="header" type="string"/>
+            <column name="is_divider" type="BOOLEAN"/>
+            <column name="sort_num" type="numeric"/>
+        </loadData>
+    </changeSet>
+</databaseChangeLog>

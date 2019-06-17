@@ -3,6 +3,7 @@ package com.vn.tma.ntd.VM.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -19,9 +20,9 @@ import java.util.stream.Collectors;
  * @author ntduoc
  * @since 6/11/2019
  */
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
 public class UserPrincipal implements UserDetails {
 
     private Long id;

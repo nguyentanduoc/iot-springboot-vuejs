@@ -1,5 +1,6 @@
 package com.vn.tma.ntd.VM.service.impl;
 
+import com.vn.tma.ntd.VM.exception.BadRequestException;
 import com.vn.tma.ntd.VM.model.UserModel;
 import com.vn.tma.ntd.VM.repository.UserRepository;
 import com.vn.tma.ntd.VM.service.IUserService;
@@ -28,5 +29,15 @@ public class UserService implements IUserService {
     @Override
     public Optional<UserModel> findUserOrEmail(String userName) {
         return userRepository.findByUsernameOrEmail( userName, userName );
+    }
+
+    @Override
+    public UserModel findById(Long id) {
+        Optional<UserModel> optionalUserModel = userRepository.findById( id );
+        if (optionalUserModel.isPresent()) {
+            return optionalUserModel.get();
+        } else {
+            throw new BadRequestException( "Not found user " );
+        }
     }
 }

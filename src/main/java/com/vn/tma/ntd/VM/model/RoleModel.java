@@ -3,9 +3,11 @@ package com.vn.tma.ntd.VM.model;
 import com.vn.tma.ntd.VM.constant.ERoleName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Set;
 
 /**
  * The Class RoleModel
@@ -18,6 +20,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "role_entity")
+@EqualsAndHashCode
 public class RoleModel {
 
     @Id
@@ -27,6 +30,13 @@ public class RoleModel {
     @Column
     @Enumerated(EnumType.STRING)
     private ERoleName name;
+
+    @OneToMany(
+            mappedBy = "roleModel",
+            cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY,
+            orphanRemoval = true)
+    private Set<MenuRoleModel> menuRoles;
 
     @Override
     public String toString() {
