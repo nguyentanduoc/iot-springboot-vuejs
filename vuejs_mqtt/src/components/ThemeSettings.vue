@@ -1,6 +1,6 @@
 <template>
 	<div id="themeSetting">
-		<v-toolbar color="blue" dark>
+		<v-toolbar color="primary darken-1" dark>
 			<v-toolbar-title>
 				Theme Settings
 			</v-toolbar-title>
@@ -69,14 +69,14 @@
               sideManu: 'white'
             }
           },
-          // {
-          //   key: 'lightBlue',
-          //   value: {
-          //     sideNav: 'blue',
-          //     mainNav: 'white',
-          //     sideManu: 'blue lighten-1'
-          //   }
-          // },
+          {
+            key: 'lightBlue',
+            value: {
+              sideNav: 'blue',
+              mainNav: 'white',
+              sideManu: 'blue lighten-1'
+            }
+          },
           {
             key: 'teal',
             value: {
@@ -148,7 +148,6 @@
       themeColor: {
         handler (val) {
           this.$vuetify.theme.primary = this.colors[val].base;
-
         },
         immediate: true
       },

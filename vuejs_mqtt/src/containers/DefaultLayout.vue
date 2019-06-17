@@ -11,7 +11,7 @@
 						<router-view></router-view>
 					</div>
 					<!-- App Footer -->
-					<v-footer color="indigo" app>
+					<v-footer color="primary darken-1" app>
 						<span class="white--text">TMA - AWTC - NTDUOC &copy; {{ new Date().getFullYear() }}</span>
 					</v-footer>
 				</v-content>
