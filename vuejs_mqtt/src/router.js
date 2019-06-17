@@ -36,6 +36,11 @@ export default new Router({
           name: 'map',
           component: () => import('./views/Map'),
         },
+        {
+          path: 'account',
+          name: 'Account',
+          component: () => import('./views/Account'),
+        },
       ]
     },
     {

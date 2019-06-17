@@ -57,7 +57,7 @@
 						</template>
 					</v-list-group>
 					<v-subheader v-else-if="item.header" :key="i">{{ item.header }}</v-subheader>
-					<v-divider v-else-if="item.divider" :key="i"></v-divider>
+					<v-divider v-else-if="item.isDriver" :key="i"></v-divider>
 					<!--top-level link-->
 					<v-list-tile
 							v-else :to="item.href" ripple="ripple"

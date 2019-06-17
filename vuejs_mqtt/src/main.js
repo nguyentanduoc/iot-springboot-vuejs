@@ -12,6 +12,8 @@ import '../registerServiceWorker'
 import 'roboto-fontface/css/roboto/roboto-fontface.css'
 import 'font-awesome/css/font-awesome.css'
 import './assets/styles/default.styl'
+import 'vue-multiselect/dist/vue-multiselect.min.css'
+import VeeValidate from 'vee-validate'
 
 const isProduction = process.env.NODE_ENV === 'production';
 const options = {
@@ -32,6 +34,7 @@ const optionsMqtt = {
 Vue.config.productionTip = false;
 Vue.use(VueLogger, options);
 Vue.use(VueMqtt, 'wss://m10.cloudmqtt.com:38332', optionsMqtt);
+Vue.use(VeeValidate);
 Vue.use(Vuetify, {
   theme: {
     primary: '#ee44aa',
