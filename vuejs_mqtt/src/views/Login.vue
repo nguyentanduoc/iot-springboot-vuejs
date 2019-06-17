@@ -10,7 +10,7 @@
 									<img src="/static/m.png" alt="Vue Material Admin" width="120" height="120">
 									<h1 class="flex my-4 primary--text">Material Admin Template</h1>
 								</div>
-								<v-form>
+								<v-form @submit.prevent="login(model)">
 									<v-alert :value="getAlert.isShow" :color="getAlert.color">
 										{{getAlert.message}}
 									</v-alert>
