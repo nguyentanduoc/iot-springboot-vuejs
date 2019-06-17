@@ -20,12 +20,12 @@ import java.io.Serializable;
 @Embeddable
 @AllArgsConstructor
 @NoArgsConstructor
-public class ChildrenMenu implements Serializable {
+public class ChildrenMenuKey implements Serializable {
 
     @Column(name = "children_id")
-    private Long childrenId;
+    private Long children;
 
     @Column(name = "parent_id")
-    private Long parentId;
+    private Long parent;
 
 }

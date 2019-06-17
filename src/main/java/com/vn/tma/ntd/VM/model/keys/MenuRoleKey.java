@@ -1,4 +1,4 @@
-package com.vn.tma.ntd.VM.model;
+package com.vn.tma.ntd.VM.model.keys;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
