@@ -6,14 +6,21 @@ const {LOADING_MUTATION_TYPE, ERROR_MUTATION_TYPE, LOGIN_MUTATION_TYPE} = MUTATI
 export default {
   state: {
     jwt: '',
-    authentication: null,
+    userDTO: {
+      id: '',
+      name: '',
+      email: '',
+      username: '',
+      roles: [],
+      menuDTOS: []
+    },
     isLogin: false
   },
   mutations: {
     [LOGIN_MUTATION_TYPE.LOGIN_SUCCESS](state, payload) {
-      const {authentication, jwt} = payload;
+      const {userDTO, jwt} = payload;
       setJwt(jwt);
-      state.authentication = authentication;
+      state.userDTO = userDTO;
       state.jwt = jwt;
       state.isLogin = true;
     },
@@ -47,6 +54,13 @@ export default {
       return {
         isLogin: state.isLogin,
         jwt: state.jwt
+      }
+    },
+    getMenu(state) {
+      if (state.userDTO && state.userDTO.menuDTOS && state.userDTO.menuDTOS.length > 0) {
+        return state.userDTO.menuDTOS;
+      } else {
+        return null;
       }
     }
   }

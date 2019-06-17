@@ -38,7 +38,7 @@ public class UserModel extends AditableEntity<Long> {
     @Column
     private String password;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinTable(
             name = "users_roles",
             joinColumns = @JoinColumn(

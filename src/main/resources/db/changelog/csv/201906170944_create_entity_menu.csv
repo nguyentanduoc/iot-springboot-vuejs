@@ -1,0 +1,4 @@
+id,name,title,group_id,icon,href,header,is_divider,sort_num
+1,,,1,,,Apps,false,0
+2,Dashboard,Dashboard,1,dashboard,/home,,false,1
+3,Map,Map,1,map,/map,,false,2

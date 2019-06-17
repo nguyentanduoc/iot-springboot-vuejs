@@ -1,0 +1,43 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+    <changeSet id="01" author="ntduoc">
+        <createTable tableName="fk_menu_role">
+            <column name="role_id" type="bigint">
+                <constraints nullable="false" unique="false"/>
+            </column>
+            <column name="menu_id" type="bigint">
+                <constraints nullable="false" unique="false"/>
+            </column>
+        </createTable>
+        <addUniqueConstraint
+                catalogName="cat" columnNames="role_id, menu_id"
+                constraintName="const_role_id_menu_id"
+                deferrable="true" disabled="true"
+                initiallyDeferred="true"
+                schemaName="public" tableName="fk_menu_role"/>
+        <addForeignKeyConstraint
+                baseColumnNames="role_id" baseTableName="fk_menu_role"
+                constraintName="fk_fk_menu_role_role_id" deferrable="true"
+                initiallyDeferred="true"
+                onDelete="CASCADE" onUpdate="RESTRICT"
+                referencedColumnNames="id" referencedTableName="role_entity"/>
+        <addForeignKeyConstraint
+                baseColumnNames="menu_id" baseTableName="fk_menu_role"
+                constraintName="fk_fk_menu_role_menu_id" deferrable="true"
+                initiallyDeferred="true"
+                onDelete="CASCADE" onUpdate="RESTRICT"
+                referencedColumnNames="id" referencedTableName="menu_entity"/>
+    </changeSet>
+    <changeSet id="load_data_fk_menu_role" author="ntduoc">
+        <loadData
+                catalogName="cat"
+                file="db/changelog/csv/201906171029_created_reference_menu_and_role.csv"
+                tableName="fk_menu_role">
+            <column name="menu_id" type="numeric"/>
+            <column name="role_id" type="numeric"/>
+        </loadData>
+    </changeSet>
+</databaseChangeLog>

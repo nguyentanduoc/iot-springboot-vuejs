@@ -27,7 +27,6 @@
   import {
     MglMap,
     MglMarker,
-    MglPopup,
     MglGeolocateControl,
     MglGeojsonLayer,
     MglNavigationControl,
@@ -38,7 +37,6 @@
     components: {
       MglMap,
       MglMarker,
-      MglPopup,
       MglGeolocateControl,
       MglGeojsonLayer,
       MglNavigationControl,
@@ -284,7 +282,6 @@
       'arduino': function (data) {
         const asyncActions = this.component.actions;
         const jsonObject = this.bufferToJson(data);
-        console.log(jsonObject);
         this.marker = jsonObject.data;
         this.center = jsonObject.data;
         asyncActions.easeTo({
