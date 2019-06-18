@@ -12,7 +12,6 @@ import '../registerServiceWorker'
 import 'roboto-fontface/css/roboto/roboto-fontface.css'
 import 'font-awesome/css/font-awesome.css'
 import './assets/styles/default.styl'
-import 'vue-multiselect/dist/vue-multiselect.min.css'
 import VeeValidate from 'vee-validate'
 
 const isProduction = process.env.NODE_ENV === 'production';

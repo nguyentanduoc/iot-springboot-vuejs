@@ -2,10 +2,10 @@
 	<v-container grid-list-md text-xs-center>
 		<v-layout id="account-view" row wrap>
 			<v-flex xs6>
-				<ListAccount/>
+				<list-account/>
 			</v-flex>
 			<v-flex xs6>
-				<FormCreateAccount/>
+				<from-create-account/>
 			</v-flex>
 		</v-layout>
 	</v-container>
@@ -18,8 +18,8 @@
   export default {
     name: "Account",
     components: {
-      ListAccount,
-      FormCreateAccount
+      "list-account": ListAccount,
+      "from-create-account": FormCreateAccount
     },
     data() {
       return {}

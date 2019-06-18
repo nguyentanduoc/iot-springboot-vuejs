@@ -4,7 +4,9 @@ import themeModule from './modules/themeModule';
 import registerModule from './modules/registerModule';
 import loadingModule from './modules/loadingModule';
 import alertModule from './modules/alertModule';
-import loginModule from './modules/loginModule'
+import loginModule from './modules/loginModule';
+import roleModule from './modules/roleModule';
+import accountModule from './modules/accountModule';
 
 Vue.use(Vuex);
 
@@ -14,6 +16,8 @@ export default new Vuex.Store({
     registerModule,
     loadingModule,
     alertModule,
-    loginModule
+    loginModule,
+    roleModule,
+    accountModule
   }
 })

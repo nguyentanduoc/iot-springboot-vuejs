@@ -59,9 +59,13 @@ public class UserTransfer {
         Set<RoleModel> roleModels = userModel.getRoles();
         Set<MenuDTO> menuRoleDTOs = new HashSet<>();
         roleModels.forEach( roleModel -> menuRoleDTOs.addAll( menuTransfer.listModelToDto( roleModel.getMenuRoles() ) ) );
-        Set<MenuDTO> sortMenuRoleDTOs = menuRoleDTOs.stream().sorted( Comparator.comparing( MenuDTO::getSortNum )).collect( Collectors.toCollection( LinkedHashSet::new ) );
+        Set<MenuDTO> sortMenuRoleDTOs = menuRoleDTOs.stream().sorted( Comparator.comparing( MenuDTO::getSortNum ) ).collect( Collectors.toCollection( LinkedHashSet::new ) );
         UserDTO userDTO = modelMapper.map( userModel, UserDTO.class );
         userDTO.setMenuDTOS( sortMenuRoleDTOs );
         return userDTO;
+    }
+
+    public List<UserDTO> list(Collection<UserModel> userModels) {
+        return userModels.stream().map( user -> modelMapper.map( user, UserDTO.class ) ).collect( Collectors.toList() );
     }
 }

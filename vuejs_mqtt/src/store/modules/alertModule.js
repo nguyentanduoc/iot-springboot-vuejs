@@ -1,11 +1,10 @@
 import MUTATION_TYPE from '../../common/mutationType';
 
-const {ERROR_MUTATION_TYPE} = MUTATION_TYPE;
-const {ERROR_HAS_ERROR, ERROR_RESET} = ERROR_MUTATION_TYPE;
+const {ALERT_MUTATION_TYPE} = MUTATION_TYPE;
+const {ERROR_HAS_ERROR, ERROR_RESET, ACTION_SUCCESS} = ALERT_MUTATION_TYPE;
 
 export default {
   state: {
-    isErrored: false,
     message: '',
     color: '',
     isShow: false
@@ -27,15 +26,23 @@ export default {
           message = payload.message;
         }
       }
-      state.isErrored = true;
       state.color = 'error';
       state.message = message;
       state.isShow = true;
     },
     [ERROR_RESET](state) {
-      state.isErrored = false;
       state.message = '';
       state.isShow = false;
+    },
+    [ACTION_SUCCESS](state, payload) {
+      state.color = 'success';
+      state.message = payload;
+      state.isShow = true;
+      setTimeout(() => {
+        state.color = 'success';
+        state.message = '';
+        state.isShow = false;
+      }, 2000)
     }
   },
   getters: {

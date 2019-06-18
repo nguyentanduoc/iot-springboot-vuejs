@@ -2,7 +2,7 @@ import {login} from '../../api/userApi';
 import {setJwt, deleteJwt} from '../../api/axoisConfig';
 import MUTATION_TYPE from '../../common/mutationType';
 
-const {LOADING_MUTATION_TYPE, ERROR_MUTATION_TYPE, LOGIN_MUTATION_TYPE} = MUTATION_TYPE;
+const {LOADING_MUTATION_TYPE, ALERT_MUTATION_TYPE, LOGIN_MUTATION_TYPE} = MUTATION_TYPE;
 export default {
   state: {
     jwt: '',
@@ -38,10 +38,10 @@ export default {
         .then((userResponse) => {
           commit(LOGIN_MUTATION_TYPE.LOGIN_SUCCESS, userResponse);
           commit(LOADING_MUTATION_TYPE.STOP_LOADING);
-          commit(ERROR_MUTATION_TYPE.ERROR_RESET);
+          commit(ALERT_MUTATION_TYPE.ERROR_RESET);
         })
         .catch((error) => {
-          commit(ERROR_MUTATION_TYPE.ERROR_HAS_ERROR, error);
+          commit(ALERT_MUTATION_TYPE.ERROR_HAS_ERROR, error);
           commit(LOADING_MUTATION_TYPE.STOP_LOADING);
         })
     },

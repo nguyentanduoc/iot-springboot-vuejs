@@ -52,14 +52,13 @@
   export default {
     data: () => ({
       model: {
-        username: '',
-        password: ''
+        username: 'admin',
+        password: '12345678'
       }
     }),
     computed: {
       ...mapGetters([
         'getLoading',
-        'getErrored',
         'getIsLogin',
         'getAlert'
       ])

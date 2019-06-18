@@ -65,5 +65,8 @@
   "browserslist": [
     "> 1%",
     "last 2 versions"
-  ]
+  ],
+  "description": "tech day",
+  "main": "index.js",
+  "license": "MIT"
 }

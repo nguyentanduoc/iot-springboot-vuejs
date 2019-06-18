@@ -1,11 +1,15 @@
-import ERROR_MUTATION_TYPE from './errorMutationType';
+import ALERT_MUTATION_TYPE from './alertMutationType';
 import LOADING_MUTATION_TYPE from './loadingMutationType';
 import REGISTER_MUTATION_TYPE from './registerMutationType';
 import LOGIN_MUTATION_TYPE from './loginMutationType';
+import ROLE_MUTATION_TYPE from './roleMutationType';
+import ACCOUNT_MUTATION_TYPE from './accountMutationType';
 
 export default {
   LOGIN_MUTATION_TYPE,
   REGISTER_MUTATION_TYPE,
   LOADING_MUTATION_TYPE,
-  ERROR_MUTATION_TYPE
+  ALERT_MUTATION_TYPE,
+  ROLE_MUTATION_TYPE,
+  ACCOUNT_MUTATION_TYPE
 }

@@ -5,6 +5,7 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
+import org.springframework.data.web.config.EnableSpringDataWebSupport;
 import org.springframework.integration.annotation.IntegrationComponentScan;
 
 /**
@@ -15,6 +16,7 @@ import org.springframework.integration.annotation.IntegrationComponentScan;
 @EnableJpaAuditing
 @EnableAutoConfiguration
 @IntegrationComponentScan
+@EnableSpringDataWebSupport
 public class VmApplication {
 
     /**

@@ -6,6 +6,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Collection;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -21,7 +22,7 @@ public class RoleTransfer {
     @Autowired
     private ModelMapper modelMapper;
 
-    public Set<RoleDTO> listRoleModelToRoleDTO(Set<RoleModel> roleModels) {
+    public Set<RoleDTO> listRoleModelToRoleDTO(Collection<RoleModel> roleModels) {
         return roleModels.stream().map( role -> modelMapper.map( role, RoleDTO.class ) ).collect( Collectors.toSet() );
     }
 }

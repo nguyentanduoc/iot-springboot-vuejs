@@ -1,7 +1,7 @@
 import {register} from '../../api/userApi';
 import MUTATION_TYPE from '../../common/mutationType';
 
-const {REGISTER_MUTATION_TYPE, LOADING_MUTATION_TYPE, ERROR_MUTATION_TYPE} = MUTATION_TYPE;
+const {REGISTER_MUTATION_TYPE, LOADING_MUTATION_TYPE, ALERT_MUTATION_TYPE} = MUTATION_TYPE;
 export default {
   state: {
     registerCreateSuccess: false,
@@ -9,18 +9,18 @@ export default {
   actions: {
     register({commit}, user) {
       if (user.password !== user.confirmPassword) {
-        commit(ERROR_MUTATION_TYPE.ERROR_HAS_ERROR, `Passwords don't match`);
+        commit(ALERT_MUTATION_TYPE.ERROR_HAS_ERROR, `Passwords don't match`);
       } else {
         commit(LOADING_MUTATION_TYPE.IS_LOADING);
         register(user)
           .then(() => {
             commit(REGISTER_MUTATION_TYPE.REGISTER_SUCCESS);
             commit(LOADING_MUTATION_TYPE.STOP_LOADING);
-            commit(ERROR_MUTATION_TYPE.ERROR_RESET);
+            commit(ALERT_MUTATION_TYPE.ERROR_RESET);
           })
           .catch((err) => {
             commit(LOADING_MUTATION_TYPE.STOP_LOADING);
-            commit(ERROR_MUTATION_TYPE.ERROR_HAS_ERROR, err);
+            commit(ALERT_MUTATION_TYPE.ERROR_HAS_ERROR, err);
           });
       }
     },
