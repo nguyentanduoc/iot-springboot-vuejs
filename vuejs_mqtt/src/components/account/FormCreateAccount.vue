@@ -1,11 +1,14 @@
 <template>
 	<form>
 		<v-card>
-			<v-toolbar :flat="true">
-				<v-toolbar-title>Create Account</v-toolbar-title>
+			<v-toolbar color="success" dark flat dense cad>
+				<v-toolbar-title class="subheading">Ship Form</v-toolbar-title>
+				<v-spacer></v-spacer>
 			</v-toolbar>
 			<v-card-text>
-				<v-alert :value="getAlert.isShow" :color="getAlert.color">
+				<v-alert
+						:value="getAlert.isShow" :color="getAlert.color"
+						v-if="getAlert.showOnComponent === $options.name">
 					{{getAlert.message}}
 				</v-alert>
 				<v-text-field
@@ -13,7 +16,7 @@
 						v-validate="'required|max:30'"
 						:counter="30"
 						:error-messages="errors.collect('name')"
-						label="Name"
+						label="Username"
 						data-vv-name="name"
 						required
 				></v-text-field>
@@ -28,7 +31,7 @@
 				<v-autocomplete
 						v-bind:items="roles"
 						v-model="role"
-						label="Role"
+						label="Roles"
 						item-text="name"
 						item-value="id"
 						:deletable-chips="true"
@@ -59,6 +62,7 @@
       validator: 'new'
     },
     data: () => ({
+      componentName: 'FormCreateAccount',
       name: '',
       email: '',
       role: null,

@@ -11,7 +11,9 @@
 									<h1 class="flex my-4 primary--text">Material Admin Template</h1>
 								</div>
 								<v-form @submit.prevent="login(model)">
-									<v-alert :value="getAlert.isShow" :color="getAlert.color">
+									<v-alert
+											:value="getAlert.isShow" :color="getAlert.color"
+											v-if="getAlert.showOnComponent === $options.name">
 										{{getAlert.message}}
 									</v-alert>
 									<v-text-field
@@ -50,6 +52,7 @@
   import {mapActions, mapGetters} from 'vuex'
 
   export default {
+    name: 'Login',
     data: () => ({
       model: {
         username: 'admin',

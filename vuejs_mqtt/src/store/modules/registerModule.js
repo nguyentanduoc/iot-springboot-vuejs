@@ -9,7 +9,10 @@ export default {
   actions: {
     register({commit}, user) {
       if (user.password !== user.confirmPassword) {
-        commit(ALERT_MUTATION_TYPE.ERROR_HAS_ERROR, `Passwords don't match`);
+        commit(ALERT_MUTATION_TYPE.ERROR_HAS_ERROR, {
+          alertContent: `Passwords don't match`,
+          componentName: "Register"
+        });
       } else {
         commit(LOADING_MUTATION_TYPE.IS_LOADING);
         register(user)
@@ -20,7 +23,10 @@ export default {
           })
           .catch((err) => {
             commit(LOADING_MUTATION_TYPE.STOP_LOADING);
-            commit(ALERT_MUTATION_TYPE.ERROR_HAS_ERROR, err);
+            commit(ALERT_MUTATION_TYPE.ERROR_HAS_ERROR, {
+              alertContent: err,
+              componentName: "Register"
+            });
           });
       }
     },

@@ -41,7 +41,10 @@ export default {
           commit(ALERT_MUTATION_TYPE.ERROR_RESET);
         })
         .catch((error) => {
-          commit(ALERT_MUTATION_TYPE.ERROR_HAS_ERROR, error);
+          commit(ALERT_MUTATION_TYPE.ERROR_HAS_ERROR, {
+            alertContent: error,
+            componentName: "Login"
+          });
           commit(LOADING_MUTATION_TYPE.STOP_LOADING);
         })
     },

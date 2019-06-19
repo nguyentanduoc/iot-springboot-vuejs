@@ -1,6 +1,7 @@
 package com.vn.tma.ntd.VM.service.impl;
 
 import com.vn.tma.ntd.VM.dto.UserDTO;
+import com.vn.tma.ntd.VM.dto.request.AccountEditSubmit;
 import com.vn.tma.ntd.VM.dto.request.AccountSubmit;
 import com.vn.tma.ntd.VM.exception.BadRequestException;
 import com.vn.tma.ntd.VM.model.RoleModel;
@@ -68,7 +69,7 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public void createAccount(AccountSubmit accountSubmit) {
+    public UserDTO createAccount(AccountSubmit accountSubmit) {
         Optional<UserModel> optionalUserModel = userRepository.findByUsernameOrEmail( accountSubmit.getUsername(), accountSubmit.getEmail() );
         if (!optionalUserModel.isPresent()) {
             Set<RoleModel> roleModels = new HashSet<>( iRoleService.findByIds( accountSubmit.getRoles() ) );
@@ -77,6 +78,7 @@ public class UserService implements IUserService {
             userModel.setRoles( roleModels );
             userModel.setPassword( passwordEncoder.encode( passwordDefault ) );
             saveUser( userModel );
+            return userTransfer.modelToDto( userModel );
         } else {
             throw new BadRequestException( "Username Or Email exists!" );
         }
@@ -86,6 +88,39 @@ public class UserService implements IUserService {
     public Page<UserDTO> findAllUser(Pageable pageable) {
         Page<UserModel> pageUserModel = userRepository.findAll( pageable );
         List<UserDTO> userDTOS = userTransfer.list( pageUserModel.getContent() );
-        return new PageImpl<>( userDTOS, pageable, pageUserModel.getTotalPages() );
+        return new PageImpl<>( userDTOS, pageable, userRepository.countAll() );
     }
+
+    @Override
+    public UserDTO editAccount(AccountEditSubmit accountEditSubmit) {
+        Optional<UserModel> optionalUserModel = userRepository.findById( accountEditSubmit.getId() );
+        if (!optionalUserModel.isPresent()) throw new BadRequestException( "Not found User" );
+        UserModel userModel = optionalUserModel.get();
+        boolean checkAccount = checkUsernameAndEmail( accountEditSubmit, userModel );
+        if (checkAccount) throw new BadRequestException( "Username or Email exists!" );
+        Set<RoleModel> roleModels = new HashSet<>( iRoleService.findByIds( accountEditSubmit.getRoleIds() ) );
+        userModel.setRoles( roleModels );
+        BeanUtils.copyProperties( accountEditSubmit, userModel );
+        userRepository.save( userModel );
+        return userTransfer.modelToDto( userModel );
+    }
+
+    private boolean checkUsernameAndEmail(AccountEditSubmit accountEditSubmit, UserModel userModel) {
+        if (!accountEditSubmit.getEmail().equals( userModel.getEmail() ) && !accountEditSubmit.getUsername().equals( userModel.getUsername() )) {
+            Optional<UserModel> optionalUserModelEmail = userRepository.findByEmail( accountEditSubmit.getEmail() );
+            Optional<UserModel> optionalUserModelUsername = userRepository.findByUsername( accountEditSubmit.getUsername() );
+            return optionalUserModelEmail.isPresent() || optionalUserModelUsername.isPresent();
+        } else {
+            if (!accountEditSubmit.getEmail().equals( userModel.getEmail() )) {
+                Optional<UserModel> optionalUserModelEmail = userRepository.findByEmail( accountEditSubmit.getEmail() );
+                return optionalUserModelEmail.isPresent();
+            }
+            if (!accountEditSubmit.getUsername().equals( userModel.getUsername() )) {
+                Optional<UserModel> optionalUserModelUsername = userRepository.findByUsername( accountEditSubmit.getUsername() );
+                return optionalUserModelUsername.isPresent();
+            }
+        }
+        return false;
+    }
+
 }

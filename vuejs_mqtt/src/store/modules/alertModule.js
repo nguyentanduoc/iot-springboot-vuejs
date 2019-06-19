@@ -7,7 +7,8 @@ export default {
   state: {
     message: '',
     color: '',
-    isShow: false
+    isShow: false,
+    showOnComponent: ''
   },
   actions: {
     resetErrored({commit}) {
@@ -20,15 +21,16 @@ export default {
       if (typeof (payload) === 'string') {
         message = payload;
       } else {
-        if (payload.response && payload.response.data && payload.response.data.message) {
-          message = payload.response.data.message
+        if (payload.alertContent && payload.alertContent.response && payload.alertContent.response.data && payload.alertContent.response.data.message) {
+          message = payload.alertContent.response.data.message
         } else {
-          message = payload.message;
+          message = payload.alertContent.message;
         }
       }
       state.color = 'error';
       state.message = message;
       state.isShow = true;
+      state.showOnComponent = payload.componentName;
     },
     [ERROR_RESET](state) {
       state.message = '';
@@ -36,12 +38,14 @@ export default {
     },
     [ACTION_SUCCESS](state, payload) {
       state.color = 'success';
-      state.message = payload;
+      state.message = payload.alertContent;
+      state.showOnComponent = payload.componentName;
       state.isShow = true;
       setTimeout(() => {
         state.color = 'success';
         state.message = '';
         state.isShow = false;
+        state.showOnComponent = '';
       }, 2000)
     }
   },
@@ -50,7 +54,8 @@ export default {
       return {
         color: state.color,
         isShow: state.isShow,
-        message: state.message
+        message: state.message,
+        showOnComponent: state.showOnComponent
       }
     }
   }

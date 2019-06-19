@@ -1,6 +1,7 @@
 package com.vn.tma.ntd.VM.service;
 
 import com.vn.tma.ntd.VM.dto.UserDTO;
+import com.vn.tma.ntd.VM.dto.request.AccountEditSubmit;
 import com.vn.tma.ntd.VM.dto.request.AccountSubmit;
 import com.vn.tma.ntd.VM.model.UserModel;
 import org.springframework.data.domain.Page;
@@ -16,7 +17,9 @@ public interface IUserService {
 
     UserModel findById(Long id);
 
-    void createAccount(AccountSubmit accountSubmit);
+    UserDTO createAccount(AccountSubmit accountSubmit);
 
     Page<UserDTO> findAllUser(Pageable pageable);
+
+    UserDTO editAccount(AccountEditSubmit accountEditSubmit);
 }

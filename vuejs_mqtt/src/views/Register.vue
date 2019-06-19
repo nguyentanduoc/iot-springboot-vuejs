@@ -10,7 +10,9 @@
 									<img src="/static/m.png" alt="Vue Material Admin" width="120" height="120">
 									<h1 class="flex my-4 primary--text">IoT Register</h1>
 								</div>
-								<v-alert :value="getAlert.isShow" :color="getAlert.color">
+								<v-alert
+										:value="getAlert.isShow" :color="getAlert.color"
+										v-if="getAlert.showOnComponent === componentName">
 									{{getAlert.message}}
 								</v-alert>
 								<v-form>

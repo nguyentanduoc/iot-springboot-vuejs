@@ -1,34 +1,60 @@
-import {saveAccount, getAccount} from '../../api/accountApi';
+import {editAccount, getAccount, saveAccount} from '../../api/accountApi';
 import MUTATION_TYPE from '../../common/mutationType';
 
 const {ALERT_MUTATION_TYPE, ACCOUNT_MUTATION_TYPE} = MUTATION_TYPE;
 export default {
   state: {
     accounts: null,
+    updateAccountSuccess: false
   },
   actions: {
     saveAccount({commit}, request) {
       saveAccount(request)
-        .then(() => {
-          commit(ALERT_MUTATION_TYPE.ACTION_SUCCESS, "Create Account Success");
-        }).catch((err) => {
-        commit(ALERT_MUTATION_TYPE.ERROR_HAS_ERROR, err);
-      })
+        .then(() => commit(ALERT_MUTATION_TYPE.ACTION_SUCCESS, {
+          alertContent: "Create Account Success",
+          componentName: "FormCreateAccount"
+        }))
+        .catch((err) => commit(ALERT_MUTATION_TYPE.ERROR_HAS_ERROR, {
+          alertContent: err,
+          componentName: "FormCreateAccount"
+        }));
     },
     getAccount({commit}, request) {
       getAccount(request)
-        .then(data => {
-          console.log(data);
-          commit(ACCOUNT_MUTATION_TYPE.GET_ACCOUNT_SUCCESS, data);
+        .then(data => commit(ACCOUNT_MUTATION_TYPE.GET_ACCOUNT_SUCCESS, data))
+        .catch(err => commit(ALERT_MUTATION_TYPE.ERROR_HAS_ERROR, {
+          alertContent: err,
+          componentName: "ListAccount"
+        }));
+    },
+    editAccount({commit, dispatch}, request) {
+      editAccount(request)
+        .then((user) => {
+          commit(ACCOUNT_MUTATION_TYPE.UPDATE_ACCOUNT_SUCCESS, user);
+          commit(ALERT_MUTATION_TYPE.ACTION_SUCCESS, {
+            alertContent: "Update Success",
+            componentName: "DialogEditAccount"
+          });
         })
-        .catch(err => {
-          commit(ALERT_MUTATION_TYPE.ERROR_HAS_ERROR, err);
-        });
+        .catch(err => commit(ALERT_MUTATION_TYPE.ERROR_HAS_ERROR, {
+          alertContent: err,
+          componentName: "DialogEditAccount"
+        }));
     }
   },
   mutations: {
     [ACCOUNT_MUTATION_TYPE.GET_ACCOUNT_SUCCESS](state, payload) {
       return state.accounts = payload;
+    },
+    async [ACCOUNT_MUTATION_TYPE.UPDATE_ACCOUNT_SUCCESS](state, payload) {
+      let accounts = {...state.accounts};
+      const index = accounts.content.findIndex((account) => account.id === payload.id);
+      accounts.content[index] = payload;
+      state.accounts = null;
+      state.updateAccountSuccess = true;
+      setTimeout(() => {
+        state.accounts = accounts;
+      }, 10);
     }
   },
   getters: {

@@ -21,5 +21,6 @@ public class UserDTO {
     private String email;
     private String username;
     private Set<RoleDTO> roles;
+    private Set<Long> roleIds;
     private Set<MenuDTO> menuDTOS;
 }

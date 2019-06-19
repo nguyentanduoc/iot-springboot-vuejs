@@ -12,7 +12,10 @@ export default {
         .then((data) => {
           commit(ROLE_MUTATION_TYPE.GET_ROLE_SUCCESS, data);
         }).catch((err) => {
-        commit(ALERT_MUTATION_TYPE.ERROR_HAS_ERROR, err);
+        commit(ALERT_MUTATION_TYPE.ERROR_HAS_ERROR, {
+          alertContent: err,
+          componentName: "GetRole"
+        });
       });
     }
   },

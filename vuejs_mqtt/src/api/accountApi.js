@@ -11,10 +11,20 @@ export const saveAccount = (request) => {
   })
 };
 export const getAccount = (request) => {
-  return new Promise(async (resovle, reject) => {
+  return new Promise(async (resolve, reject) => {
     try {
       const response = await instance.get("/account/get", request);
-      return resovle(response.data);
+      return resolve(response.data);
+    } catch (e) {
+      return reject(e);
+    }
+  })
+};
+export const editAccount = (request) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const response = await instance.post("/account/edit", request);
+      return resolve(response.data);
     } catch (e) {
       return reject(e);
     }

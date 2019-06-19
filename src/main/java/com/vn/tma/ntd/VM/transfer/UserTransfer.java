@@ -14,6 +14,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import javax.management.relation.Role;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -66,6 +67,18 @@ public class UserTransfer {
     }
 
     public List<UserDTO> list(Collection<UserModel> userModels) {
-        return userModels.stream().map( user -> modelMapper.map( user, UserDTO.class ) ).collect( Collectors.toList() );
+        return userModels.stream().map( user -> {
+            Set<Long> roles = user.getRoles().stream().map( RoleModel::getId ).collect( Collectors.toSet() );
+            UserDTO userDTO = modelMapper.map( user, UserDTO.class );
+            userDTO.setRoleIds( roles );
+            return userDTO;
+        } ).collect( Collectors.toList() );
+    }
+
+    public UserDTO modelToDto(UserModel userModel) {
+        Set<Long> roleIds = userModel.getRoles().stream().map( RoleModel::getId ).collect( Collectors.toSet() );
+        UserDTO userDTO = modelMapper.map( userModel, UserDTO.class );
+        userDTO.setRoleIds( roleIds );
+        return userDTO;
     }
 }

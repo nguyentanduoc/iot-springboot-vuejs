@@ -1,6 +1,7 @@
 package com.vn.tma.ntd.VM.controller;
 
 import com.vn.tma.ntd.VM.dto.UserDTO;
+import com.vn.tma.ntd.VM.dto.request.AccountEditSubmit;
 import com.vn.tma.ntd.VM.dto.request.AccountSubmit;
 import com.vn.tma.ntd.VM.service.IUserService;
 import org.slf4j.Logger;
@@ -30,18 +31,23 @@ public class AccountController {
     private IUserService iUserService;
 
     @PostMapping(path = "/create")
-    public void createAccount(@RequestBody AccountSubmit accountSubmit) {
+    public ResponseEntity createAccount(@RequestBody AccountSubmit accountSubmit) {
         logger.debug( String.format( "%s method createAccount", getClass().toString() ) );
-        iUserService.createAccount( accountSubmit );
+        return ResponseEntity.ok().body( iUserService.createAccount( accountSubmit ) );
     }
 
     @GetMapping(path = "/get")
     public ResponseEntity<Page<UserDTO>> getUser(
-            @PageableDefault(size = 20)
+            @PageableDefault(size = 5)
             @SortDefault.SortDefaults({
                     @SortDefault(sort = "id", direction = Sort.Direction.ASC)
             }) Pageable pageable) {
         return ResponseEntity.ok().body( iUserService.findAllUser( pageable ) );
     }
 
+    @PostMapping(path = "/edit")
+    public ResponseEntity editAccount(@RequestBody AccountEditSubmit accountEditSubmit) {
+        UserDTO userDTO = iUserService.editAccount( accountEditSubmit );
+        return ResponseEntity.ok().body( userDTO );
+    }
 }

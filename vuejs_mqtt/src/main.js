@@ -45,7 +45,7 @@ Vue.use(Vuetify, {
     warning: '#FFC107'
   },
   customProperties: true,
-  iconfont: 'fa4',
+  iconfont: 'md',
 });
 
 new Vue({
