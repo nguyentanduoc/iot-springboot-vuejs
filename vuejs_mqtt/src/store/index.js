@@ -7,6 +7,7 @@ import alertModule from './modules/alertModule';
 import loginModule from './modules/loginModule';
 import roleModule from './modules/roleModule';
 import accountModule from './modules/accountModule';
+import sensorModule from './modules/sensorModule';
 
 Vue.use(Vuex);
 
@@ -18,6 +19,7 @@ export default new Vuex.Store({
     alertModule,
     loginModule,
     roleModule,
-    accountModule
+    accountModule,
+    sensorModule
   }
 })

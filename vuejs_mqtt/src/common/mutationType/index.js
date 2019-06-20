@@ -4,6 +4,7 @@ import REGISTER_MUTATION_TYPE from './registerMutationType';
 import LOGIN_MUTATION_TYPE from './loginMutationType';
 import ROLE_MUTATION_TYPE from './roleMutationType';
 import ACCOUNT_MUTATION_TYPE from './accountMutationType';
+import SENSOR_MUTATION_TYPE from './sensorMutationType';
 
 export default {
   LOGIN_MUTATION_TYPE,
@@ -11,5 +12,6 @@ export default {
   LOADING_MUTATION_TYPE,
   ALERT_MUTATION_TYPE,
   ROLE_MUTATION_TYPE,
-  ACCOUNT_MUTATION_TYPE
+  ACCOUNT_MUTATION_TYPE,
+  SENSOR_MUTATION_TYPE
 }

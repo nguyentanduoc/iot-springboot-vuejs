@@ -38,9 +38,12 @@ public class UserModel extends AditableEntity<Long> {
     @Column
     private String password;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @Column
+    private boolean enabled;
+
+    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     @JoinTable(
-            name = "users_roles",
+            name = "fk_user_role",
             joinColumns = @JoinColumn(
                     name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(

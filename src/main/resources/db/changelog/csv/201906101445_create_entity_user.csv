@@ -1,2 +1,2 @@
-id,name,email,username,password,created_at,updated_at
-1,admin,admin@gmail.com,admin,$2a$10$yevXWJxX4bQQXYRjSJkA1OqVycRfgDGazoFyTmL9MKTbAAuHDnMXK,2016-10-10T15:35:49.772,2016-10-10T15:35:49.772
+id,name,email,username,password,enabled,created_at,updated_at
+1,admin,admin@gmail.com,admin,$2a$10$yevXWJxX4bQQXYRjSJkA1OqVycRfgDGazoFyTmL9MKTbAAuHDnMXK,true,2016-10-10T15:35:49.772,2016-10-10T15:35:49.772

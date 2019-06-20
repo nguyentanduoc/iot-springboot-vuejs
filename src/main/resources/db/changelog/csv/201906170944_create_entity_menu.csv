@@ -4,4 +4,4 @@ id,name,title,group_id,icon,href,header,is_divider,sort_num
 3,Map,Map,1,map,/map,,false,2
 4,,,2,,,,true,100
 5,,,2,,,Management,false,100
-6,Account,Account,2,account_circle,/account,,false,1001
+6,Account,Account,2,account_circle,/account,,false,101

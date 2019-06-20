@@ -29,17 +29,22 @@ export default new Router({
         {
           path: 'home',
           name: 'home',
-          component: () => import('./views/Home'),
+          component: () => import('./views/apps/HomeApps'),
         },
         {
           path: 'map',
           name: 'map',
-          component: () => import('./views/Map'),
+          component: () => import('./views/apps/MapApps'),
         },
         {
           path: 'account',
           name: 'Account',
-          component: () => import('./views/Account'),
+          component: () => import('./views/management/AccountManagement'),
+        },
+        {
+          path: 'sensor',
+          name: 'Sensor',
+          component: () => import('./views/management/SensorManagement'),
         },
       ]
     },

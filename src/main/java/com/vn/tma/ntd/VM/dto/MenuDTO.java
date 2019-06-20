@@ -20,20 +20,12 @@ import java.util.Set;
 public class MenuDTO {
 
     private Long id;
-
     private String name;
-
     private String title;
-
     private String icon;
-
     private String href;
-
     private String header;
-
     private Boolean isDriver;
-
     private GroupMenuDTO groupMenuModel;
-
     private Long sortNum;
 }

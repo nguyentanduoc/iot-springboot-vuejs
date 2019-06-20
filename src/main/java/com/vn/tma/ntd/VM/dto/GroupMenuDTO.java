@@ -16,6 +16,5 @@ import lombok.NoArgsConstructor;
 public class GroupMenuDTO {
 
     private Long id;
-
     private String name;
 }

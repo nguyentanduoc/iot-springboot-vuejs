@@ -1,5 +1,5 @@
 <template>
-	<v-app id="register" class="primary">
+	<v-app class="primary" :id="$options.name">
 		<v-content>
 			<v-container fluid fill-height>
 				<v-layout align-center justify-center>
@@ -12,7 +12,7 @@
 								</div>
 								<v-alert
 										:value="getAlert.isShow" :color="getAlert.color"
-										v-if="getAlert.showOnComponent === componentName">
+										v-if="getAlert.showOnComponent === $options.name">
 									{{getAlert.message}}
 								</v-alert>
 								<v-form>

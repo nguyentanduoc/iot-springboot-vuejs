@@ -1,4 +1,4 @@
-<template>
+<template :id="$options.name">
 	<v-app id="login" class="primary">
 		<v-content>
 			<v-container fluid fill-height>

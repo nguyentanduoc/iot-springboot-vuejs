@@ -1,4 +1,4 @@
-<template>
+<template :id="$options.name">
 	<v-toolbar
 			color="primary"
 			fixed

@@ -1,4 +1,4 @@
-<template>
+<template :id="$options.name">
 	<div id="map">
 		<!--<button @click="rotateMap">rotateMap</button>-->
 		<!--<img id="arrowCar" src="../assets/img/location-arrow-flat.png" alt="arrowCar">-->
@@ -34,6 +34,7 @@
   } from "vue-mapbox";
 
   export default {
+    name: "Map",
     components: {
       MglMap,
       MglMarker,

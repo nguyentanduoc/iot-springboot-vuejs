@@ -1,4 +1,4 @@
-import {editAccount, getAccount, saveAccount} from '../../api/accountApi';
+import {editAccount, getAccount, saveAccount, deleteAccount} from '../../api/accountApi';
 import MUTATION_TYPE from '../../common/mutationType';
 
 const {ALERT_MUTATION_TYPE, ACCOUNT_MUTATION_TYPE} = MUTATION_TYPE;
@@ -27,7 +27,7 @@ export default {
           componentName: "ListAccount"
         }));
     },
-    editAccount({commit, dispatch}, request) {
+    editAccount({commit}, request) {
       editAccount(request)
         .then((user) => {
           commit(ACCOUNT_MUTATION_TYPE.UPDATE_ACCOUNT_SUCCESS, user);
@@ -40,6 +40,20 @@ export default {
           alertContent: err,
           componentName: "DialogEditAccount"
         }));
+    },
+    deleteAccount({commit}, request) {
+      const {componentName, item, optionAction} = request;
+      deleteAccount({item, optionAction})
+        .then((response) => {
+          commit(ALERT_MUTATION_TYPE.ACTION_SUCCESS, {
+            alertContent: "Apply action success!", componentName
+          });
+        })
+        .catch((err) =>
+          commit(ALERT_MUTATION_TYPE.ERROR_HAS_ERROR, {
+            alertContent: err, componentName
+          })
+        )
     }
   },
   mutations: {

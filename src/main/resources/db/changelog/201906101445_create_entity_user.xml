@@ -25,7 +25,10 @@
             <column name="password" type="varchar(255)">
                 <constraints nullable="false" unique="false"/>
             </column>
-                <column name="created_at" type="datetime">
+            <column name="enabled" type="BOOLEAN">
+                <constraints nullable="false" unique="false"/>
+            </column>
+            <column name="created_at" type="datetime">
                 <constraints nullable="false" unique="false"/>
             </column>
             <column name="updated_at" type="datetime">
@@ -41,7 +44,7 @@
         </sql>
     </changeSet>
     <changeSet id="create_table_users_role" author="ntduoc">
-        <createTable tableName="users_roles">
+        <createTable tableName="fk_user_role">
             <column name="user_id" type="bigint">
                 <constraints nullable="false" unique="false"/>
             </column>
@@ -54,16 +57,16 @@
                 constraintName="const_user_id_role_id"
                 deferrable="true" disabled="true"
                 initiallyDeferred="true"
-                schemaName="public" tableName="users_roles"/>
+                schemaName="public" tableName="fk_user_role"/>
         <addForeignKeyConstraint
-                baseColumnNames="user_id" baseTableName="users_roles"
-                constraintName="fk_user_id_users_role" deferrable="true"
+                baseColumnNames="user_id" baseTableName="fk_user_role"
+                constraintName="fk_user_id_user_role" deferrable="true"
                 initiallyDeferred="true"
                 onDelete="CASCADE" onUpdate="RESTRICT"
                 referencedColumnNames="id" referencedTableName="user_entity"/>
         <addForeignKeyConstraint
-                baseColumnNames="role_id" baseTableName="users_roles"
-                constraintName="fk_role_id_users_role" deferrable="true"
+                baseColumnNames="role_id" baseTableName="fk_user_role"
+                constraintName="fk_role_id_user_role" deferrable="true"
                 initiallyDeferred="true" onDelete="CASCADE" onUpdate="RESTRICT"
                 referencedColumnNames="id" referencedTableName="role_entity"/>
     </changeSet>
@@ -71,7 +74,7 @@
         <sql dbms="postgreSQL"
              endDelimiter="\nGO"
              splitStatements="true"
-             stripComments="true">SELECT create_hypertable('users_roles', 'user_id', 'role_id')
+             stripComments="true">SELECT create_hypertable('fk_user_role', 'user_id', 'role_id')
         </sql>
     </changeSet>
     <changeSet author="ntduoc" id="02">
@@ -83,6 +86,7 @@
             <column name="email" type="string"/>
             <column name="username" type="string"/>
             <column name="password" type="string"/>
+            <column name="enabled" type="BOOLEAN"/>
             <column name="created_at" type="datetime"/>
             <column name="updated_at" type="datetime"/>
         </loadData>
@@ -90,7 +94,7 @@
     <changeSet author="ntduoc" id="03">
         <loadData catalogName="cat"
                   file="db/changelog/csv/201906101445_01_create_entity_user.csv"
-                  tableName="users_roles">
+                  tableName="fk_user_role">
             <column name="user_id" type="numeric"/>
             <column name="role_id" type="numeric"/>
         </loadData>

@@ -1,4 +1,4 @@
-<template>
+<template :id="$options.name">
 	<div id="themeSetting">
 		<v-toolbar color="primary darken-1" dark>
 			<v-toolbar-title>

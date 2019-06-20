@@ -1,0 +1,34 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+    <changeSet id="add_sequence" author="ntduoc">
+        <createSequence
+                sequenceName="seq_type_sensor" cycle="false" minValue="1" maxValue="9223372036854775807"
+                startValue="100" incrementBy="1"/>
+    </changeSet>
+    <changeSet id="01" author="ntduoc">
+        <createTable tableName="type_sensor_entity">
+            <column name="id" type="bigint" defaultValueComputed="nextval('seq_type_sensor')">
+                <constraints nullable="false" unique="true" primaryKey="true"/>
+            </column>
+            <column name="name" type="varchar(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="detail" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="load_data_type_sensor_entity" author="ntduoc">
+        <loadData
+                catalogName="cat"
+                file="db/changelog/csv/201906201403_created_entity_type_sensor.csv"
+                tableName="type_sensor_entity">
+            <column name="id" type="numeric"/>
+            <column name="name" type="string"/>
+            <column name="detail" type="string"/>
+        </loadData>
+    </changeSet>
+</databaseChangeLog>

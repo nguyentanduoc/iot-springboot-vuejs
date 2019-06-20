@@ -1,4 +1,4 @@
-<template>
+<template :id="$options.name">
 	<div>ádada</div>
 </template>
 

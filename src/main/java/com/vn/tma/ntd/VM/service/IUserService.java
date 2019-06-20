@@ -1,8 +1,10 @@
 package com.vn.tma.ntd.VM.service;
 
 import com.vn.tma.ntd.VM.dto.UserDTO;
+import com.vn.tma.ntd.VM.dto.request.AccountDelete;
 import com.vn.tma.ntd.VM.dto.request.AccountEditSubmit;
 import com.vn.tma.ntd.VM.dto.request.AccountSubmit;
+import com.vn.tma.ntd.VM.dto.response.UserSelection;
 import com.vn.tma.ntd.VM.model.UserModel;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -22,4 +24,8 @@ public interface IUserService {
     Page<UserDTO> findAllUser(Pageable pageable);
 
     UserDTO editAccount(AccountEditSubmit accountEditSubmit);
+
+    void deleteAccount(AccountDelete accountDelete);
+
+    List<UserSelection> getAllForSelection();
 }

@@ -10,4 +10,6 @@
     <include file="changelog/201906170944_create_entity_menu.xml" relativeToChangelogFile="true"/>
     <include file="changelog/201906171029_created_reference_menu_and_role.xml" relativeToChangelogFile="true"/>
     <include file="changelog/201906171119_create_reference_menu_and_children_menu.xml" relativeToChangelogFile="true"/>
+    <include file="changelog/201906201403_created_entity_type_sensor.xml" relativeToChangelogFile="true"/>
+    <include file="changelog/201906201413_created_entity_sensor.xml" relativeToChangelogFile="true"/>
 </databaseChangeLog>

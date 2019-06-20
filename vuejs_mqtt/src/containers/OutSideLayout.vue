@@ -1,4 +1,4 @@
-<template>
+<template :id="$options.name">
 	<div>
 		<div>Out Side</div>
 		<router-view></router-view>

@@ -1,6 +1,7 @@
 package com.vn.tma.ntd.VM.controller;
 
 import com.vn.tma.ntd.VM.dto.UserDTO;
+import com.vn.tma.ntd.VM.dto.request.AccountDelete;
 import com.vn.tma.ntd.VM.dto.request.AccountEditSubmit;
 import com.vn.tma.ntd.VM.dto.request.AccountSubmit;
 import com.vn.tma.ntd.VM.service.IUserService;
@@ -8,10 +9,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.data.web.SortDefault;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -49,5 +52,11 @@ public class AccountController {
     public ResponseEntity editAccount(@RequestBody AccountEditSubmit accountEditSubmit) {
         UserDTO userDTO = iUserService.editAccount( accountEditSubmit );
         return ResponseEntity.ok().body( userDTO );
+    }
+
+    @PostMapping(path = "/delete")
+    public ResponseEntity deleteAccount(@RequestBody AccountDelete accountDelete) {
+        iUserService.deleteAccount( accountDelete );
+        return new ResponseEntity( HttpStatus.OK );
     }
 }

@@ -1,4 +1,4 @@
-<template>
+<template :id="$options.name">
 	<v-navigation-drawer v-model="drawer" fixed app>
 		<v-list dense>
 			<v-list-tile

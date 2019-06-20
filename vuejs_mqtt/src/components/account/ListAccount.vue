@@ -1,9 +1,12 @@
 <template>
-	<div>
+	<div :id="$options.name">
 		<v-card>
 			<v-toolbar card dense color="transparent">
 				<v-toolbar-title><h4>Table User</h4></v-toolbar-title>
 				<v-spacer></v-spacer>
+				<v-btn icon>
+					<v-icon @click="getAccount">refresh</v-icon>
+				</v-btn>
 			</v-toolbar>
 			<v-divider></v-divider>
 			<v-card-text v-if="accounts">
@@ -17,12 +20,18 @@
 						:headers="headers"
 						:items="accounts.content"
 						:loading="!accounts"
-						hide-actions
-				>
+						hide-actions>
 					<template v-slot:items="props">
-						<td class="text-xs-left">{{ props.item.name }}</td>
 						<td class="text-xs-left">{{ props.item.username }}</td>
 						<td class="text-xs-left">{{ props.item.email }}</td>
+						<td class="text-xs-left">
+							<v-chip
+									:color="props.item.enabled ? 'green' : 'red'"
+									text-color="white"
+									label small>
+								{{props.item.enabled ? 'enabled' : 'disabled'}}
+							</v-chip>
+						</td>
 						<td class="justify-center px-0">
 							<v-btn depressed outline icon fab dark color="primary" small @click="editItem(props.item)">
 								<v-icon>edit</v-icon>
@@ -35,6 +44,7 @@
 				</v-data-table>
 				<div class="text-xs-center pt-3">
 					<v-pagination
+							@input="pageClick"
 							:value="accounts.number + 1"
 							:length="accounts.totalPages"
 							:total-visible="7"
@@ -61,7 +71,7 @@
 </template>
 
 <script>
-  import {mapGetters} from 'vuex'
+  import {mapGetters, mapActions} from 'vuex'
   import DialogEditAccount from "./DialogEditAccount";
   import DialogConfirmDeleteAccount from './DialogConfirmDeleteAccount';
 
@@ -74,17 +84,9 @@
     data() {
       return {
         headers: [
-          {
-            text: 'Full Name',
-            align: 'left',
-            value: 'name'
-          },
-          {
-            text: 'Username',
-            align: 'left',
-            value: 'username'
-          },
+          {text: 'Username', align: 'left', value: 'username'},
           {text: 'Email', value: 'email'},
+          {text: 'Enabled', value: 'enabled'},
           {text: 'Actions', value: 'name', sortable: false, align: 'center',}
         ],
         dialog: false,
@@ -100,6 +102,7 @@
       ...mapGetters(['accounts', 'roles', "getAlert"])
     },
     methods: {
+      ...mapActions(['getAccount']),
       editItem(item) {
         this.dialog = true;
         this.itemEdit = {...item};
@@ -107,6 +110,9 @@
       deleteItem(item) {
         this.dialogConfirmDelete = true;
         this.itemDelete = {...item};
+      },
+      pageClick(page) {
+        this.getAccount({page: page - 1});
       }
     },
   }

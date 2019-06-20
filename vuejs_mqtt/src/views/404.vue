@@ -1,5 +1,5 @@
-<template>
-	<v-app id="404">
+<template :id="$options.name">
+	<v-app>
 		<v-container fluid fill-height>
 			<v-layout align-center justify-center row>
 				<div class="mr-3 hidden-sm-and-down">
@@ -20,8 +20,8 @@
 <script>
   export default {
     methods: {
-      goHome () {
-        this.$router.push({ path: '/' });
+      goHome() {
+        this.$router.push({path: '/'});
       }
     }
   };

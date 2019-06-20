@@ -20,6 +20,7 @@ public class UserDTO {
     private String name;
     private String email;
     private String username;
+    private boolean enabled;
     private Set<RoleDTO> roles;
     private Set<Long> roleIds;
     private Set<MenuDTO> menuDTOS;

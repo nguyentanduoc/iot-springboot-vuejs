@@ -14,7 +14,6 @@
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
             <Pattern>%d %p %C{1.} [%t] %m%n</Pattern>
         </encoder>
-
         <rollingPolicy
                 class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- rollover daily and when the file reaches 10 MegaBytes -->
@@ -27,13 +26,28 @@
         </rollingPolicy>
     </appender>
 
+    <springProfile name="dev">
+        <root level="info">
+            <appender-ref ref="Console"/>
+        </root>
+        <logger name="com.vn.ntd.VM" level="debug" additivity="false">
+            <appender-ref ref="Console"/>
+        </logger>
+    </springProfile>
+
+    <springProfile name="prod">
+        <root level="info">
+            <appender-ref ref="RollingFile"/>
+        </root>
+        <logger name="com.vn.ntd.VM" level="debug" additivity="false">
+            <appender-ref ref="RollingFile"/>
+        </logger>
+    </springProfile>
+
     <root level="info">
-        <appender-ref ref="RollingFile"/>
         <appender-ref ref="Console"/>
     </root>
-
     <logger name="com.vn.ntd.VM" level="debug" additivity="false">
-        <appender-ref ref="RollingFile"/>
         <appender-ref ref="Console"/>
     </logger>
 

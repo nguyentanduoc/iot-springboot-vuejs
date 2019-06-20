@@ -13,6 +13,7 @@ import 'roboto-fontface/css/roboto/roboto-fontface.css'
 import 'font-awesome/css/font-awesome.css'
 import './assets/styles/default.styl'
 import VeeValidate from 'vee-validate'
+import VueClipboards from "vue-clipboards"
 
 const isProduction = process.env.NODE_ENV === 'production';
 const options = {
@@ -47,6 +48,7 @@ Vue.use(Vuetify, {
   customProperties: true,
   iconfont: 'md',
 });
+Vue.use(VueClipboards);
 
 new Vue({
   router,

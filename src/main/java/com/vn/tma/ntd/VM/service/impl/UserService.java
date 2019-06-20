@@ -1,8 +1,11 @@
 package com.vn.tma.ntd.VM.service.impl;
 
+import com.vn.tma.ntd.VM.constant.EActionDelete;
 import com.vn.tma.ntd.VM.dto.UserDTO;
+import com.vn.tma.ntd.VM.dto.request.AccountDelete;
 import com.vn.tma.ntd.VM.dto.request.AccountEditSubmit;
 import com.vn.tma.ntd.VM.dto.request.AccountSubmit;
+import com.vn.tma.ntd.VM.dto.response.UserSelection;
 import com.vn.tma.ntd.VM.exception.BadRequestException;
 import com.vn.tma.ntd.VM.model.RoleModel;
 import com.vn.tma.ntd.VM.model.UserModel;
@@ -19,10 +22,15 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Tuple;
+import javax.persistence.TypedQuery;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * The Class UserService
@@ -47,6 +55,9 @@ public class UserService implements IUserService {
 
     @Autowired
     private UserTransfer userTransfer;
+
+    @PersistenceContext
+    private EntityManager entityManager;
 
     @Override
     public void saveUser(UserModel userModel) {
@@ -77,6 +88,7 @@ public class UserService implements IUserService {
             BeanUtils.copyProperties( accountSubmit, userModel );
             userModel.setRoles( roleModels );
             userModel.setPassword( passwordEncoder.encode( passwordDefault ) );
+            userModel.setEnabled( true );
             saveUser( userModel );
             return userTransfer.modelToDto( userModel );
         } else {
@@ -123,4 +135,22 @@ public class UserService implements IUserService {
         return false;
     }
 
+    public void deleteAccount(AccountDelete accountDelete) {
+        Optional<UserModel> optionalUserModel = userRepository.findById( accountDelete.getItem().getId() );
+        if (!optionalUserModel.isPresent()) throw new BadRequestException( "Not found User" );
+        UserModel userModel = optionalUserModel.get();
+        if (accountDelete.getOptionAction() == EActionDelete.ALWAYS_DELETE) {
+            userRepository.delete( userModel );
+        } else {
+            userModel.setEnabled( false );
+            userRepository.save( userModel );
+        }
+    }
+
+    public List<UserSelection> getAllForSelection() {
+        String sql = "select u.id, u.username from UserModel u";
+        TypedQuery<Tuple> query = entityManager.createQuery( sql, Tuple.class );
+        List<Tuple> resultList = query.getResultList();
+        return resultList.stream().map( tuple -> new UserSelection( tuple.get( 0, Long.class ), tuple.get( 1, String.class ) ) ).collect( Collectors.toList() );
+    }
 }

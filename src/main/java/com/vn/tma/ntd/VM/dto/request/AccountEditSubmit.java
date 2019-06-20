@@ -24,5 +24,6 @@ public class AccountEditSubmit {
     private String email;
     private String username;
     private String name;
+    private boolean enabled;
     private Iterable<Long> roleIds;
 }

@@ -1,4 +1,4 @@
-<template>
+<template :id="$options.name">
 	<v-card>
 		<v-toolbar card dense color="transparent">
 			<v-toolbar-title><h4>Edit Account</h4></v-toolbar-title>
@@ -18,6 +18,9 @@
 					</v-flex>
 					<v-flex xs12>
 						<v-text-field label="Email*" required v-model="item.email"></v-text-field>
+					</v-flex>
+					<v-flex xs12>
+						<v-switch v-model="item.enabled" label="Enabled"></v-switch>
 					</v-flex>
 					<v-flex xs12>
 						<v-autocomplete

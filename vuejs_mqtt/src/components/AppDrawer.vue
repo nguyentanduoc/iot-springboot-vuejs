@@ -1,4 +1,4 @@
-<template>
+<template :id="$options.name">
 	<v-navigation-drawer
 			id="appDrawer"
 			:mini-variant.sync="mini"
@@ -16,7 +16,7 @@
 		</v-toolbar>
 		<vue-perfect-scrollbar class="drawer-menu--scroll" :settings="scrollSettings">
 			<v-list dense expand>
-				<template v-for="(item, i) in getMenu">
+				<template v-for="(item, i) in menus">
 					<!--group with subitems-->
 					<v-list-group
 							v-if="item.items" :key="item.name" :group="item.group" :prepend-icon="item.icon"

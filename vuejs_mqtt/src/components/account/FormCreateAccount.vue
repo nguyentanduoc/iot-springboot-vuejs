@@ -1,10 +1,11 @@
 <template>
 	<form>
 		<v-card>
-			<v-toolbar color="success" dark flat dense cad>
-				<v-toolbar-title class="subheading">Ship Form</v-toolbar-title>
+			<v-toolbar card dense color="transparent">
+				<v-toolbar-title><h4>Create Account</h4></v-toolbar-title>
 				<v-spacer></v-spacer>
 			</v-toolbar>
+			<v-divider></v-divider>
 			<v-card-text>
 				<v-alert
 						:value="getAlert.isShow" :color="getAlert.color"
