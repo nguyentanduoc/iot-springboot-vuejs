@@ -1,6 +1,7 @@
 package com.vn.tma.ntd.VM.service.impl;
 
 import com.vn.tma.ntd.VM.dto.TypeSensorDTO;
+import com.vn.tma.ntd.VM.dto.request.TypeOfSensorSubmit;
 import com.vn.tma.ntd.VM.exception.BadRequestException;
 import com.vn.tma.ntd.VM.model.TypeSensorModel;
 import com.vn.tma.ntd.VM.repository.TypeSensorRepository;
@@ -39,6 +40,12 @@ public class TypeSensorService implements ITypeSensorService {
         Optional<TypeSensorModel> typeSensorModel = typeSensorRepository.findById( id );
         if (!typeSensorModel.isPresent()) throw new BadRequestException( "Not found Type Sensor" );
         return typeSensorModel.get();
+    }
+
+    @Override
+    public void save(TypeOfSensorSubmit typeOfSensorSubmit) {
+        TypeSensorModel typeSensorModel = typeSensorTransfer.dtoSubmitToModel( typeOfSensorSubmit );
+        typeSensorRepository.save( typeSensorModel );
     }
 
 }

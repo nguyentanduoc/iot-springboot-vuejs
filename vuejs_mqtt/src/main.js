@@ -14,6 +14,8 @@ import 'font-awesome/css/font-awesome.css'
 import './assets/styles/default.styl'
 import VeeValidate from 'vee-validate'
 import VueClipboards from "vue-clipboards"
+import moment from 'moment-timezone'
+import VueMoment from 'vue-moment'
 
 const isProduction = process.env.NODE_ENV === 'production';
 const options = {
@@ -49,6 +51,9 @@ Vue.use(Vuetify, {
   iconfont: 'md',
 });
 Vue.use(VueClipboards);
+Vue.use(VueMoment, {
+  moment,
+});
 
 new Vue({
   router,

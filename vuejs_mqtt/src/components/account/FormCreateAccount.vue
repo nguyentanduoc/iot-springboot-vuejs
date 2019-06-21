@@ -85,12 +85,14 @@
     methods: {
       ...mapActions(['saveAccount']),
       submit() {
-        this.$validator.validateAll().then(() => {
-          this.saveAccount({
-            username: this.name,
-            email: this.email,
-            roles: this.role
-          })
+        this.$validator.validateAll().then((isValid) => {
+          if (isValid) {
+            this.saveAccount({
+              username: this.name,
+              email: this.email,
+              roles: this.role
+            })
+          }
         });
       },
       clear() {

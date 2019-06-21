@@ -46,6 +46,11 @@ export default new Router({
           name: 'Sensor',
           component: () => import('./views/management/SensorManagement'),
         },
+        {
+          path: 'type-of-sensor',
+          name: 'Type Of Sensor',
+          component: () => import('./views/management/TypeOfSensor'),
+        },
       ]
     },
     {

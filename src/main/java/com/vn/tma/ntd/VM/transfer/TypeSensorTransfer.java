@@ -1,6 +1,7 @@
 package com.vn.tma.ntd.VM.transfer;
 
 import com.vn.tma.ntd.VM.dto.TypeSensorDTO;
+import com.vn.tma.ntd.VM.dto.request.TypeOfSensorSubmit;
 import com.vn.tma.ntd.VM.model.TypeSensorModel;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,5 +25,9 @@ public class TypeSensorTransfer {
 
     public Set<TypeSensorDTO> list(Collection<TypeSensorModel> typeSensorModel) {
         return typeSensorModel.stream().map( model -> modelMapper.map( model, TypeSensorDTO.class ) ).collect( Collectors.toSet() );
+    }
+
+    public TypeSensorModel dtoSubmitToModel(TypeOfSensorSubmit typeOfSensorSubmit) {
+        return modelMapper.map( typeOfSensorSubmit, TypeSensorModel.class );
     }
 }

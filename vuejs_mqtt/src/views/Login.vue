@@ -1,5 +1,5 @@
-<template :id="$options.name">
-	<v-app id="login" class="primary">
+<template >
+	<v-app :id="$options.name" class="primary">
 		<v-content>
 			<v-container fluid fill-height>
 				<v-layout align-center justify-center>
@@ -7,8 +7,8 @@
 						<v-card class="elevation-1 pa-3">
 							<v-card-text>
 								<div class="layout column align-center">
-									<img src="/static/m.png" alt="Vue Material Admin" width="120" height="120">
-									<h1 class="flex my-4 primary--text">Material Admin Template</h1>
+									<img src="/static/tracking-icon.svg" alt="tracking-icon" width="120" height="120">
+									<h1 class="flex my-4 primary--text">Vehicle Management with IoT</h1>
 								</div>
 								<v-form @submit.prevent="login(model)">
 									<v-alert
@@ -24,19 +24,19 @@
 											v-model="model.password"></v-text-field>
 								</v-form>
 								<router-link to="/pages/register">
-									<a>Register</a>
+									<a>Create Account</a>
 								</router-link>
 							</v-card-text>
 							<v-card-actions>
-								<v-btn icon>
-									<v-icon color="blue">fa fa-facebook-square fa-lg</v-icon>
-								</v-btn>
-								<v-btn icon>
-									<v-icon color="red">fa fa-google fa-lg</v-icon>
-								</v-btn>
-								<v-btn icon>
-									<v-icon color="light-blue">fa fa-twitter fa-lg</v-icon>
-								</v-btn>
+								<!--								<v-btn icon>-->
+								<!--									<v-icon color="blue">fa fa-facebook-square fa-lg</v-icon>-->
+								<!--								</v-btn>-->
+								<!--								<v-btn icon>-->
+								<!--									<v-icon color="red">fa fa-google fa-lg</v-icon>-->
+								<!--								</v-btn>-->
+								<!--								<v-btn icon>-->
+								<!--									<v-icon color="light-blue">fa fa-twitter fa-lg</v-icon>-->
+								<!--								</v-btn>-->
 								<v-spacer></v-spacer>
 								<v-btn block color="primary" @click="login(model)" :loading="getLoading">Login</v-btn>
 							</v-card-actions>
@@ -80,7 +80,7 @@
   };
 </script>
 <style scoped lang="css">
-	#login {
+	#Login {
 		height: 50%;
 		width: 100%;
 		position: absolute;

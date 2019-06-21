@@ -96,6 +96,20 @@ const Menu = [
       "name": "Management"
     },
     "sortNum": 104
+  },
+  {
+    "id": 8,
+    "name": "TypeOfSensor",
+    "title": "Type Of Sensor",
+    "icon": "memory",
+    "href": "/type-of-sensor",
+    "header": "",
+    "isDriver": false,
+    "groupMenuModel": {
+      "id": 2,
+      "name": "Management"
+    },
+    "sortNum": 105
   }
 ];
 // reorder menu

@@ -7,8 +7,8 @@
 						<v-card class="elevation-1 pa-3">
 							<v-card-text>
 								<div class="layout column align-center">
-									<img src="/static/m.png" alt="Vue Material Admin" width="120" height="120">
-									<h1 class="flex my-4 primary--text">IoT Register</h1>
+									<img src="/static/tracking-icon.svg" alt="tracking-icon" width="120" height="120">
+									<h1 class="flex my-4 primary--text">Vehicle Management with IoT</h1>
 								</div>
 								<v-alert
 										:value="getAlert.isShow" :color="getAlert.color"
@@ -30,17 +30,21 @@
 											v-model="model.confirmPassword">
 									</v-text-field>
 								</v-form>
+								<router-link to="/pages/login">
+									<a>Login</a>
+								</router-link>
 							</v-card-text>
 							<v-card-actions>
-								<v-btn icon>
-									<v-icon color="blue">fa fa-facebook-square fa-lg</v-icon>
-								</v-btn>
-								<v-btn icon>
-									<v-icon color="red">fa fa-google fa-lg</v-icon>
-								</v-btn>
-								<v-btn icon>
-									<v-icon color="light-blue">fa fa-twitter fa-lg</v-icon>
-								</v-btn>
+<!--								<v-btn icon>-->
+<!--									<v-icon color="blue">fa fa-facebook-square fa-lg</v-icon>-->
+<!--								</v-btn>-->
+<!--								<v-btn icon>-->
+<!--									<v-icon color="red">fa fa-google fa-lg</v-icon>-->
+<!--								</v-btn>-->
+<!--								<v-btn icon>-->
+<!--									<v-icon color="light-blue">fa fa-twitter fa-lg</v-icon>-->
+<!--								</v-btn>-->
+
 								<v-spacer></v-spacer>
 								<v-btn block color="primary" @click="register(model)" :loading="getLoading">Register</v-btn>
 							</v-card-actions>
@@ -87,7 +91,7 @@
 </script>
 
 <style scoped lang="css">
-	#register {
+	#Register {
 		height: 50%;
 		width: 100%;
 		position: absolute;

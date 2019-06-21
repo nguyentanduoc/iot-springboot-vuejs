@@ -36,7 +36,7 @@
 					<v-flex xs2 md2>
 						<v-btn
 								dark icon
-								@click="createNewType"
+								@click="dialogCreateTypeOfSensor = true"
 								slot="activator"
 								color="green">
 							<v-icon>control_point</v-icon>
@@ -49,18 +49,29 @@
 			<v-btn color="success" @click="submit">submit</v-btn>
 			<v-btn color="warning" @click="clear">clear</v-btn>
 		</v-toolbar>
+		<v-dialog
+				max-width="600px"
+				v-model="dialogCreateTypeOfSensor"
+				@closeDialogCreateTypeOfSensor="dialogCreateTypeOfSensor = false">
+			<dialog-create-type-of-sensor/>
+		</v-dialog>
 	</v-card>
 </template>
 
 <script>
   import {mapActions, mapGetters} from 'vuex';
+  import DialogCreateTypeOfSensor from './DialogCreateTypeOfSensor';
 
   export default {
     name: "FormCreateSensor",
+    components: {
+      DialogCreateTypeOfSensor
+    },
     data() {
       return {
         typeSensor: null,
         account: null,
+        dialogCreateTypeOfSensor: false
       }
     },
     methods: {
@@ -77,8 +88,6 @@
       clear() {
         this.typeSensor = null;
         this.account = null;
-      },
-      createNewType() {
       },
       changeAccount(account) {
         if (account) {

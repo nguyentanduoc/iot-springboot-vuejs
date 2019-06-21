@@ -29,8 +29,12 @@
 								{{props.item.enabled ? 'enabled' : 'disabled'}}
 							</v-chip>
 						</td>
-						<td class="text-xs-left">{{moment(String(props.item.createdAt)).format('YYYY-MM-DD HH:mm')}}</td>
-						<td class="text-xs-left">{{moment(String(props.item.updatedAt)).format('YYYY-MM-DD HH:mm')}}</td>
+						<td class="text-xs-left">
+							{{ props.item.createdAt | moment('timezone', 'Asia/Ho_Chi_Minh', 'YYYY-MM-DD HH:mm')}}
+						</td>
+						<td class="text-xs-left">
+							{{ props.item.updatedAt| moment('timezone', 'Asia/Ho_Chi_Minh', 'YYYY-MM-DD HH:mm')}}
+						</td>
 						<td class="justify-center px-0">
 							<v-btn depressed icon dark color="primary" small @click="editItem(props.item)">
 								<v-icon>edit</v-icon>
@@ -61,7 +65,7 @@
           {text: 'Enabled', align: 'left', value: 'enabled'},
           {text: 'Created at', align: 'left', value: 'enabled'},
           {text: 'Updated at', align: 'left', value: 'enabled'},
-          {text: 'Actions', value: 'name', sortable: false, align: 'left',}
+          {text: 'Actions', align: 'left', value: 'name', sortable: false,}
         ]
       }
     },

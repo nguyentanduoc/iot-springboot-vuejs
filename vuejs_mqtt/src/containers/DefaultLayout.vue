@@ -1,4 +1,4 @@
-<template :id="$options.name">
+<template>
 	<div id="appRoot">
 		<template v-if="!$route.meta.public">
 			<v-app id="inspire" class="app">
